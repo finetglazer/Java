@@ -6,6 +6,8 @@ class var_var
                 int a=100;
                 int b=12;
                 int c=a+b;
+                #long must have the l or L at the last digit
+                long  a=1222l;
                 String s="hello bro";
                 System.out.println(a);
                 System.out.println(c);
