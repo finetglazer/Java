@@ -5,3 +5,4 @@ inf : if (var == null)
 ni : nextInt()
 nl : nextLong()
 juS : import java.util.Scanner;
+
