@@ -1,0 +1,66 @@
+ In such a paradigm, all exceptions are considered objects of special classes organized into a class hierarchy
+ Throwable
+   |
+   |-- Error
+   |    |-- AssertionError
+   |    |-- VirtualMachineError
+   |    |    |-- OutOfMemoryError
+   |    |    |-- StackOverflowError
+   |    |    |-- ...
+   |    |-- LinkageError
+   |         |-- ClassCircularityError
+   |         |-- ClassFormatError
+   |         |-- NoClassDefFoundError
+   |         |-- ...
+   |
+   |-- Exception
+        |-- RuntimeException
+        |    |-- ArithmeticExceptionn
+        |    |-- ArrayIndexOutOfBoundsException
+        |    |-- ArrayStoreException
+        |    |-- ClassCastException
+        |    |-- ConcurrentModificationException
+        |    |-- IllegalArgumentException
+        |    |-- IllegalStateException
+        |    |-- IndexOutOfBoundsException
+        |    |-- NullPointerException
+        |    |-- NumberFormatException
+        |    |-- UnsupportedOperationException
+        |    |-- ...
+        |
+        |-- IOException
+        |    |-- FileNotFoundException
+        |    |-- InterruptedIOException
+        |    |-- EOFException
+        |    |-- SocketException
+        |    |-- ...
+        |
+        |-- SQLException
+        |
+        |-- ClassNotFoundException
+        |
+        |-- InterruptedException
+        |
+        |-- ...
+
+
+Throw & try and catch process the expected exception 
+Ex: dive the 0;
+    public void divide(int a, int b) throws ArithmeticException {
+    if (b == 0) {
+        throw new ArithmeticException("Cannot divide by zero");
+    }
+    int result = a / b;
+    System.out.println("Result: " + result);
+}
+
+public static void main(String[] args) {
+    try {
+        divide(10, 0);
+    } catch (ArithmeticException e) {
+        System.out.println("Caught exception: " + e.getMessage());
+    }
+}
+
+Checked exceptions are represented by the Exception class not RuntimeException and RuntimeException does not use the throw 
+coz the excetion of it cannot be interfere.

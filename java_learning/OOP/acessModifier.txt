@@ -1,0 +1,87 @@
+public static void main(String[] args) { 
+    // some code goes here
+}
+public in here to everyone can access that method and public is a modifier
+1. why shoudld learn it
+    2 reasons: clarity and safety
+    + clarity: just like the washing machine, it just has the button to use instead of know the way do by hand
+    , specially dont need to know the button has the what behavior
+    + safety: just make your code more safe.
+2. public and private-package
+    code be divided by two mains:
+        + top-level can be accessed
+        + low-level cannot be accessed
+    in java: Fields and methods that are explicitly used outside the class are called top-level fields and methods
+             if fields and methods are used inside the class, they are known as low-level ones.
+    See what we can set restrictions of code:
+        With TOP-LEVEL CLASS having 1 in 2 modifier:
+            + public: can access from the other class of the other package
+            + private-package: vice versa public
+        If the class has modifier public, class is public and dont have modifier it is private-package with default.
+        Ex: public: public class <name> 
+            private-package: class <name>
+3. private-members
+    With members of class have 4 modifier: private-package, private, public, protected.
+    First I learn private:
+        + With field(atribution), it usually be used with the private, it only used in class, 
+                access by the method setter and getter
+        + With method: with private method make the code of public shorter and more clearly. 
+                private hide the low-level implementation from the code
+                Ex:
+                    public class MyClass {
+                    private int doSomethingPrivate() {
+                        // do some complex, low-level operation
+                        return 42;
+                    }
+
+                    public int doSomethingPublic() {
+                        // do some high-level operation using doSomethingPrivate()
+                        int result = doSomethingPrivate() + 10;
+                        return result;
+                    }
+                }
+                private method have the role encapsule the complex and low-level operation. And make the public 
+                method easier to use. 
+                REMEMBER: PRIVATE just used within class and public method can access that.
+        + With constructors: sometimes can be private
+4. Package-private members
+    Its just like class, each method, field, constructor only be accessed by the other class in the same package
+    initialize dont need keyword
+    Ex:
+
+        public class slary {
+            
+            int income;// default package-private
+            slary (int income) { // package-private constructor
+                this.income = income;
+            }
+        }
+        public class pro {
+            slary s;
+            Pro(slary s) { // package-private constructor
+                this.s = s;
+            }
+
+            public void promote() {
+                s.income += 10;
+            }
+        }
+        main:
+            public class Main {
+            public static void main(String[] args) {
+                Salar salary = new Salary(5000);
+                Promotion promotion = new Promotion(salary);
+                promotion.promote();
+                System.out.println("New salary: " + salary.income); // prints "New salary: 6500"
+            }
+        }
+5. protected and public members
+    Now we still learn absolutely protected, just REMEMBER that it easy access than package-private that it can be 
+    accessed by class of the other package
+    And public easy to access from anywhere, it is appropriate for constructor and method not field
+    
+
+Access Modifier	             Visibility	                                        Accessible by
+Package-Private 	Visible within the same package only	            Classes and subclasses in the same package
+Protected	        Visible within the same package and in subclasses	Classes and subclasses in the same package, 
+                                                                        and subclasses in different packages

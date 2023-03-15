@@ -1,0 +1,56 @@
+Theory:
+    constructors is that very useful when u initialize a new obj;
+    it different form methods:
+        has same name as class
+        doesnt return any type
+1. Using constructors
+    Ex:
+        class Patient {
+
+            String name;
+            int age;
+            float height;
+
+            public Patient(String name, int age, float height) { // this is constructors
+                this.name = name;
+                this.age = age;
+                this.height = height;
+            }
+        }
+    
+
+        when initialize:
+            Patient patient1 = new Patient("Heinrich", 40, 182.0f);
+            Patient patient2 = new Patient("Mary", 33, 171.5f); 
+2. keyword this
+    to access the instance var when it is private (chat gpt explain that)
+    And ususally used when the constructor and methods has the same name atribute.
+        Ex:
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public void setAge(int age) {
+                this.age = age;
+            }
+
+            public void setHeight(double height) {
+                this.height = height;
+            }       
+        name, age, height of these methods to distinct with instance var with same name(constructor). 
+3. default and no argument.
+    if u dont initialize the constructor, it is default
+    Ex:    Patient patient = new Patient();
+    Nothing in ()
+    and the constructor no para:
+    it like the default but u dont want it be null
+    Ex:
+        public Person() {
+            name = "Unknown";
+            age = 0;
+            height = 0.0;
+        }
+        Person p = new Person();
+        // p.name = "Unknown"
+        // p.age = 0
+        // p.height = 0.0

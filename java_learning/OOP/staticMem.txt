@@ -1,0 +1,90 @@
+just make the mem of the class is a globar var
+some change change the share value.
+
+1. class var
+    public class ExampleClass {
+        public static int staticField = 0;
+        public int instanceField = 0;
+
+        public ExampleClass(int instanceFieldValue) {
+            this.instanceField = instanceFieldValue;
+        }
+    }
+    ExampleClass instance1 = new ExampleClass(1);
+    ExampleClass instance2 = new ExampleClass(2);
+    Now let's change the value of staticField for instance1:
+
+    ExampleClass.staticField = 5;// dont need the obj 
+    If we now print the values of staticField and instanceField for both instances, 
+    we'll see that the value of staticField is the same for both instances:
+
+    System.out.println(instance1.staticField); // Output: 5
+    System.out.println(instance1.instanceField); // Output: 1
+
+    System.out.println(instance2.staticField); // Output: 5
+    System.out.println(instance2.instanceField); // Output: 2
+2. class constant 
+    it just can't be changed.
+    The standard class Math , for example, contains two static constants:
+        public static final double E = 2.7182818284590452354;
+        public static final double PI = 3.14159265358979323846;
+3. class methods
+    it just like the field and can be accessed without the obj
+    the specific:
+        a static method can access only static fields and cannot access non-static fields;
+        a static method can invoke another static method, but it cannot invoke an instance method;
+        a static method cannot refer to this keyword because there is no instance in the static context.
+        Ex:
+            public class ExampleClass {
+            public static int staticField = 0;
+            public int instanceField = 0;
+
+            public static void staticMethod() {
+                // This line is legal because staticMethod can access staticField:
+                staticField = 1;
+
+                // This line is not legal because staticMethod cannot access instanceField:
+                // instanceField = 1;
+
+                // This line is legal because staticMethod can invoke another static method:
+                anotherStaticMethod();
+
+                // This line is not legal because staticMethod cannot invoke an instance method:
+                // instanceMethod();
+
+                // This line is not legal because there is no instance in the static context:
+                // this.instanceField = 1;(dich dan da la no la bien static ai cung dung dc va ko can bien cu the nao truy cap no ca)
+            }
+
+            public static void anotherStaticMethod() {
+                // This is a static method that can be invoked by staticMethod:
+                System.out.println("This is another static method.");
+            }
+
+            public void instanceMethod() {
+                // This is an instance method that cannot be invoked by staticMethod:
+                System.out.println("This is an instance method.");
+            }
+        }
+    REMEMBER: static method and field belong to class not any instance.
+    Instance methods, however, can access static fields and methods.
+
+    Static methods are often used as utility methods that are the same for the whole project. 
+    As an example, you can create a class with only static methods for performing typical math operations.
+
+    Ex:
+        public class SomeClass {
+    
+        public SomeClass() {
+            invokeAnInstanceMethod(); // this is possible here
+            invokeAStaticMethod();    // this is possible here too
+        }
+        
+        public static void invokeAStaticMethod() { 
+            // it's impossible to invoke invokeAnInstanceMethod() here
+        }
+        
+        public void invokeAnInstanceMethod() { 
+            invokeAStaticMethod();  // this is possible too
+        }
+    }

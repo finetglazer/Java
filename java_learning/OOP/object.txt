@@ -1,0 +1,45 @@
+All classes from the standard library (String, Date) and classes defined by programmers are reference types 
+which means that variables of these types store addresses where the actual objects are located
+
+1. Creating obj
+    Ex:
+    String str = new String("hello");
+    
+    class Patient {
+    String name;
+    int age;
+    }
+    Patient p = new Patient();
+    Despite the fact that String is a standard class and Patient is our own class, both classes are regular reference types. 
+    However, there is a big difference between those classes and we will discuss it below.
+
+2. Immutability of objects
+    the Immutability is for string that u can modify it.
+    
+    The class Patient is not immutable because it is possible to change any field of an object.
+
+    Patient patient = new Patient();
+
+    patient.name = "Mary";
+    patient.name = "Alice";
+
+3. Sharing references
+    More than one variable can refer to the same object.
+
+        Patient patient = new Patient();
+
+        patient.name = "Mary";
+        patient.age = 24;
+
+        System.out.println(patient.name + " " + patient.age); // Mary 24
+
+        Patient p = patient;
+
+        System.out.println(p.name + " " + p.age); // Mary 24
+
+    Coz the var is reference so it just remember the address, so if u change the var, the var of that address change
+        patient.age = 25;
+        System.out.println(p.age); // 25
+4.null
+    As for any reference type, a variable of a class type can be null which means it is not initialized yet.
+        Patient patient = null;

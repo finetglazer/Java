@@ -1,0 +1,62 @@
+Just for multiple initialize
+1. Overloading constructor
+Ex:
+    public class Robot {
+    String name;
+    String model;
+
+    public Robot() {
+        this.name = "Anonymous";
+        this.model = "Unknown";
+    }
+
+    public Robot(String name, String model) {
+        this.name = name;
+        this.model = model;
+    }
+}
+Robot() is a no-argument constructor that initializes fields with default values;
+Robot(String name, String model) takes two parameters and assigns them to the corresponding fields.
+REMEMBER: Bear in mind that you cannot define two constructors with the same number, types, and order of parameters!
+
+2.Invoking constructor from the another constructor
+
+It make the initialization the obj more flexible.
+Syntax: use the keyword this(parameters)
+
+public class Robot {
+    String name;
+    String model;
+    int lifetime;
+
+    public Robot() {
+        this.name = "Anonymous";
+        this.model = "Unknown";
+    }
+
+    public Robot(String name, String model) {
+        this(name, model, 20);
+    }
+
+    public Robot(String name, String model, int lifetime) {
+        this.name = name;
+        this.model = model;
+        this.lifetime = lifetime;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        // Create a Robot object with default values
+        Robot robot1 = new Robot();
+        System.out.println("Robot 1: " + robot1.name + " " + robot1.model + " " + robot1.lifetime);
+
+        // Create a Robot object with a specified name and model
+        Robot robot2 = new Robot("R2-D2", "Astromech");
+        System.out.println("Robot 2: " + robot2.name + " " + robot2.model + " " + robot2.lifetime);
+
+        // Create a Robot object with a specified name, model, and lifetime
+        Robot robot3 = new Robot("C-3PO", "Protocol", 50);
+        System.out.println("Robot 3: " + robot3.name + " " + robot3.model + " " + robot3.lifetime);
+    }
+}
+as u can see initialize the obj with 1 or 2 or nothing parameters -> so flexible!

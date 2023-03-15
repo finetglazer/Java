@@ -1,0 +1,77 @@
+sometimes the subclass want to access the members or constructor of superclass, it need the keyword super.
+3 benefits:
+    to access instance fields of the parent class;
+    to invoke methods of the parent class;
+    to invoke constructors of the parent class (no-arg or parameterized).
+1. access superclass field and method.
+    it just like the keyword this.
+    it is the most lucrative when the superclass has the same field or method like subclass
+    Ex:
+        class SuperClass {
+    
+        protected int field;
+
+        protected int getField() {
+            return field;
+        }
+        
+        protected void printBaseValue() {
+            System.out.println(field);
+        }
+    }
+
+    class SubClass extends SuperClass {
+        
+        protected int field;
+
+        public SubClass() {
+            this.field = 30;  // It initializes the field of SubClass
+            field = 30;       // It also initializes the field of SubClass
+            super.field = 20; // It initializes the field of SuperClass
+        }
+
+        /**     
+        * It prints the value of SuperClass and then the value of SubClass
+        */
+        public void printSubValue() {
+            super.printBaseValue(); // It invokes the method of SuperClass, super is optional here
+            System.out.println(field);
+        }
+    }
+->We need to use the keyword here because the subclass field hides the base class field with the same name.
+In the body of the method printSubValue , the superclass method printBaseValue is invoked. Here, the keyword super is optional. 
+It is required when a subclass method has the same name as a method in the base class.
+
+3. Invoking super class constructor
+     it resembles working with multiple constructors using this().
+     Two important points:
+
+        + Invoking super(...) must be the first statement in a subclass constructor, otherwise, the code cannot be compiled;
+        + The default constructor of a subclass automatically calls the no-argument constructor of the superclass.
+        
+        Ex:
+            class Person {
+
+            protected String name;
+            protected int yearOfBirth;
+            protected String address;
+
+            public Person(String name, int yearOfBirth, String address) {
+                this.name = name;
+                this.yearOfBirth = yearOfBirth;
+                this.address = address;
+            }
+        }
+
+        class Employee extends Person {
+
+            protected Date startDate;
+            protected Long salary;
+
+            public Employee(String name, int yearOfBirth, String address, Date startDate, Long salary) {
+                super(name, yearOfBirth, address); // invoking a constructor of the superclass
+                
+                this.startDate = startDate;
+                this.salary = salary;
+            }
+        }

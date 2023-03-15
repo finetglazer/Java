@@ -1,0 +1,64 @@
+Package provide the mecha to group the classes in same module
+
+
+1. basic
+    many benefit:
+        + avoid the conflicts name
+        + group classes which have some relation
+        + control access to classes and members with access modifiers (you'll learn about this in another topic)
+    name of package always be lowercase
+    package can contain the other package and whole struture in the directory
+    package always at the top of the code
+2. import class
+    1. if want to use class of the other package
+        using the import
+            package org.hyperskill.java.packages.theory.p1
+            import org.hyperskill.java.packages.theory.p2.B 
+            when import must code full name
+    2. 
+        Ex:
+            package country
+                class Republic
+                package state
+                    class City
+                    class average
+                package territory
+                    class Urban
+                    class Rural
+
+
+        -class city and state in the same subpackage -> use one class inside
+        the other with a short name.
+        -Urban, rural and subpackage territory is the same
+
+        - If u want to use any class of subpackage territory inside
+        the class of subpackage state , or vice versa, u need to write full name
+        of this class.  Moreover, if you want to use classes from the subpackages state 
+        or territory inside the class Republic from the package country or vice versa,
+        you also need to write a full name or import the class. 
+4. import standard classes
+    no different between standard and custom
+5. static import
+    has the benefit that x.sort -> sort(x) coz sort is the 
+    method of class so in normal x.sort
+    Ex;
+    import static java.util.Arrays.*; // instead of the statement "import java.util.Arrays;"
+->        sort(numbers); // instead of writing Arrays.sort(...)
+6. Default package
+    if we do not write any package before
+    difine our class, it will be placed inside the 
+    Default package.
+    -> so disadvantage ->  classes located here can't be imported to classes 
+    located inside named packages.
+    Ex:
+        The following class cannot be used in a class located inside packages 
+        since there is no package declaration.
+        // no package declaration
+
+        public class Person {
+            String firstName;
+            String lastName;
+        }
+     Do not use the default package for real applications. It is perfectly fine for simple, educational applications, like "Hello world", but 
+     more complex projects will be better 
+     in named packages.   

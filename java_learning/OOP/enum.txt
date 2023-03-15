@@ -1,0 +1,40 @@
+Enum là một loại đặc biệt của lớp trong Java, được sử dụng để đại diện cho một tập hợp các hằng số cố định. 
+Một enum được định nghĩa bằng từ khóa "enum" và bao gồm một danh sách các hằng số.
+1. ddinh nghia enum
+    public enum Season {
+    SPRING, SUMMER, AUTUMN, WINTER // four instances
+}
+    The same class!
+    Enum trong Java thường được khai báo là public vì nó được sử dụng để đại diện cho một tập hợp 
+    các giá trị cố định và có thể được truy cập từ các phương thức khác trong chương trình hoặc từ các lớp bên ngoài.
+2. methods for processing enum
+    Ex:
+        public enum card {
+                VISA, DEBIT,MASTERCARD
+        }
+        
+        main:
+        // khoi tao bang valueof hoac gan banwg .
+        card c = card.VISA;
+        card c = card.valueof("VISA");
+        //name() method 
+        System.out.println(active.name());// VISA
+        //values(): phương thức này trả về một mảng chứa tất cả các giá trị của enum theo thứ tự mà chúng được khai báo.
+        card[] lst = card.values(); // [VISA, DEBIT, MASTERCARD]
+        //Một phương thức khác có tên là ordinal()trả về vị trí thứ tự của một thể hiện của enum:
+        sout(c.ordinal()) // 0
+        sout(card.VISA.ordinal())//0
+        // comparing by "==" and "equal()"
+3. Enumerations in the switch statement
+    switch(card) {
+        case VISA:
+            sout("tourist");
+        case DEBIT:
+            sout("debt");
+        case MASTERCARD:
+            sout("god");
+    }
+4.iterating over an enum
+    for(card x: card.values()) {
+        sout(x);
+    }

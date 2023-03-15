@@ -1,0 +1,29 @@
+Coz the fields of the class is private, so to access it must use the setter and getter method
+
+1. Genral intro
+    Getter only read, and setter modify and both must be public
+2. The syntax
+    name:get/set in lowercase and + uppercase noun
+    class account {
+        private int id;
+        private boolean good;
+        public int getId() {
+            return id;
+        }
+        public void setId(int id) {
+            this.id = id;
+        }
+        public boolean isGood() {
+            return good
+        }
+        public void setGood(boolean good) {
+            this.good = good;
+        }
+    }
+    main:
+        account hung = new account();
+        hung.setId(419);
+        hung.setGood(true);
+
+        sout(hung.getId);
+        sout(hung.getGood);

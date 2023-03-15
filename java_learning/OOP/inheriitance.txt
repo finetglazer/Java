@@ -1,0 +1,83 @@
+it is mecharism that for the new class depriving from the base class.
+-> help build convenient and reuse existing code.
+
+1. Extending classes
+    term:
+        +base and super class: is the parent. 
+        +deprived and child clas
+    the characteristics:
+        + child class just have 1 father
+        + father have many child
+        + have multiple level(class A father B, B father of C)
+    A subclass inherit all public, protected fields and method from father.
+    A subclass doesn't inherit private fields and methods from the superclass. However, 
+    - if the superclass has public or protected methods for accessing its private fields, 
+    these members can be used inside subclasses.
+    - If you'd like the base class members to be accessible from all subclasses 
+    but not from the outside code (excluding the same package),
+    use the access modifier protected.
+2. Example
+        class Person {
+        protected String name;
+        protected int yearOfBirth;
+        protected String address;
+
+        // public getters and setters for all fields here
+    }
+
+    class Client extends Person {
+        protected String contractNumber;
+        protected boolean gold;
+
+        // public getters and setters for all fields here
+    }
+
+    class Employee extends Person {
+        protected Date startDate;
+        protected Long salary;
+
+        // public getters and setters for all fields here
+    }
+
+    class Programmer extends Employee {
+        protected String[] programmingLanguages;
+
+        public String[] getProgrammingLanguages() {
+            return programmingLanguages;
+        }
+
+        public void setProgrammingLanguages(String[] programmingLanguages) {
+            this.programmingLanguages = programmingLanguages;
+        }
+    }
+
+    class Manager extends Employee {
+        protected boolean smile;
+
+        public boolean isSmile() {
+            return smile;
+        }
+
+        public void setSmile(boolean smile) {
+            this.smile = smile;
+        }
+    }
+
+    main:
+        Programmer p = new Programmer();
+        p.setName("Hung");
+        p.setYearOfBirth(2023);
+        p.setAddress("HoangMai");
+        p.startDate(new Date());
+        p.setSalary(7000_000);
+        p.setProgrammingLanguages(new String[] {"Java", "C++", "Python"});
+
+        sout(p.getName());// John Elephant
+        sout(p.getSalary); // 7000_000
+        sout(Arrays.toString(p.getProgrammingLanguages()));//[Java, C++, Python]
+
+4. Final classes
+    If a class is declared with the keyword final, 
+    it cannot have subclasses at all.
+    Ex:
+        final class SuperClass { }

@@ -1,0 +1,25 @@
+1. Fundamental
+    An object’s current state is represented by its fields,
+    An object’s behavior is represented by its methods.
+2. Basic principles
+    encapsulation: trans data into the one
+    data abstracton: make easier to use
+    inheritance: can use pass down
+    polymorphism: use some obj have the same title but some different atributions
+3. Obj
+    In pogram, everything can be a obj, ex: class.
+    -> pogram is interact between objects
+    sometimes, objs dont have the atribute and methods
+4. class
+    Often, many individual objects have similar characteristics.
+    We can say these objects belong to the same type or class.
+    ex: 
+    class house has the same atribute:
+        + floors
+        + year
+        ...
+    class plane :
+        + name
+        + speed
+        + nums possible can pass
+        ...

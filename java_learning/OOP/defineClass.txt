@@ -1,0 +1,27 @@
+1. Declaring class
+    class Nothing {
+    // empty body
+}
+    a class has:
+        + constructors
+        + methods
+        + fields
+        Fields store data, 
+        methods define behavior and c
+        onstructors allow us to create and initialize new objects of the class. 
+2. Writting fields
+    A field is a var can be primitive(int, char,...) and even classes. 
+    Ex:
+        class Patient {
+
+        String name;
+        int age;
+        float height;
+    }
+    three fields: name, age, height.
+3. Creating obj
+    Create an instance of the class Patient: use the keyword new
+    Ex: 
+        Patient theOne = new Patient();
+        System.out.println(theOne.name);// null
+        System.out.println(theOne.age);//0
