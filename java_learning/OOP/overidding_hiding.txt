@@ -1,0 +1,140 @@
+1. overriding
+    vd:
+        class Mammal {
+
+        public String sayHello() {
+            return "ohlllalalalalalaoaoaoa";
+        }
+        }
+
+        class Cat extends Mammal {
+
+            @Override
+            public String sayHello() {
+                return "meow";
+            }
+        }
+
+        class Human extends Mammal {
+
+            @Override
+            public String sayHello() {
+                return "hello";
+            }
+        }
+
+        Mammal mammal = new Mammal();
+        System.out.println(mammal.sayHello()); // it prints "ohlllalalalalalaoaoaoa"
+
+        Cat cat = new Cat();
+        System.out.println(cat.sayHello()); // it prints "meow"
+
+        Human human = new Human();
+        System.out.println(human.sayHello()); // it prints "hello"
+
+        Như bạn có thể thấy, mỗi lớp con có cách triển khai phương thức riêng sayHello.
+
+        Hệ thống phân cấp bao gồm ba lớp: Mammal, Catvà Human. 
+        Lớp Mammalcó phương thức sayHello. Mỗi lớp con ghi đè phương thức này. 
+        Chú @Overridethích chỉ ra rằng phương thức bị ghi đè. 
+        Chú thích này là tùy chọn nhưng hữu ích.
+
+2. Quy tắc ghi đè phương thức
+
+    Có một số quy tắc cho các phương thức của lớp con sẽ ghi đè lên các phương thức của lớp cha:
+
+    + phương thức phải có cùng tên như trong lớp cha;
+    + các đối số phải hoàn toàn giống như trong phương thức siêu lớp;
+    + kiểu trả về phải cùng kiểu hoặc kiểu con của kiểu trả về được khai báo trong phương thức của lớp cha;
+    + cấp độ truy cập phải giống hoặc mở hơn cấp độ truy cập của phương thức bị ghi đè;
+    + một phương thức riêng tư không thể bị ghi đè vì nó không được kế thừa bởi các lớp con;
+    + nếu lớp cha và lớp con của nó nằm trong cùng một gói, thì các phương thức riêng của gói có thể bị ghi đè;
+    + phương pháp tĩnh không thể được ghi đè.
+
+-> But, remember, the annotation is not required, it's only for convenience.
+
+3. Forbidding overriding
+
+    If you'd like to forbid overriding of a method, declare it with the keyword final.
+
+    public final void method() {
+        // do something
+    }
+    Now, if you try to override this method in a subclass, a compile-time error will occur.
+
+4. Overriding and overloading methods together
+
+    Recall, that overloading is a feature that allows a class to have more than one method with the same name, 
+    if their arguments are different.
+
+    Chúng ta cũng có thể ghi đè và quá tải một phương thức thể hiện trong một lớp con cùng một lúc. 
+
+    class SuperClass {
+
+        public void invokeInstanceMethod() {
+            System.out.println("SuperClass: invokeInstanceMethod");
+        }
+    }
+
+    class SubClass extends SuperClass {
+
+        @Override
+        public void invokeInstanceMethod() {
+            System.out.println("SubClass: invokeInstanceMethod is overridden");
+        }
+        
+        // @Override -- method doesn't override anything
+        public void invokeInstanceMethod(String s) {
+            System.out.println("SubClass: overloaded invokeInstanceMethod(String)");
+        }
+    }
+
+    SubClass clazz = new SubClass();
+
+    clazz.invokeInstanceMethod();    // SubClass: invokeInstanceMethod() is overridden
+    clazz.invokeInstanceMethod("s"); // SubClass: overloaded invokeInstanceMethod(String)
+
+5. Ẩn các phương thức tĩnh
+
+    Các phương thức tĩnh không thể bị ghi đè. Nếu một lớp con có một phương thức tĩnh có cùng chữ ký (tên và tham số) 
+    như một phương thức tĩnh trong lớp cha thì phương thức trong lớp con sẽ ẩn phương thức trong lớp cha. 
+    Nó hoàn toàn khác với ghi đè phương thức.
+
+    class Main {
+        public static void main(String[] args) {
+            SuperClass.staticMethod();          // super
+            new SuperClass().staticMethod();    // super
+            SubClass.staticMethod();            // sub
+            new SubClass().staticMethod();      // sub
+
+            SuperClass ss = new SubClass();
+            ss.staticMethod();                  // super, because static method belongs to a class, not to an instance
+        }
+    }
+
+    class SuperClass {
+        public static void staticMethod() {
+            System.out.println("super");
+        }
+    }
+
+    class SubClass extends SuperClass {
+        public static void staticMethod() {
+            System.out.println("sub");
+        }
+    }
+    Bạn sẽ gặp lỗi thời gian biên dịch nếu một lớp con có một phương thức tĩnh có cùng chữ ký với một phương thức thể hiện trong lớp cha hoặc ngược lại. 
+    Nhưng nếu các phương thức có cùng tên nhưng các tham số khác nhau thì sẽ không có vấn đề gì.
+
+    class SuperClass {
+        public void instanceMethod() {
+            System.out.println("super");
+        }
+    }
+
+    class SubClass extends SuperClass {
+        // Static method instanceMethod() in SubClass cannot override instance method instanceMethod() in SuperClass
+        public static void instanceMethod() {
+            System.out.println("sub");
+        }
+    }

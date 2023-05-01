@@ -34,13 +34,11 @@ public class Random {
         // double nextDouble() returns a pseudorandom value of double type between 0.0 and 1.0;
         // void nextBytes(byte[] bytes) generates random bytes and places them into a user-supplied byte array.
 
-        // Random random = new Random();
-        // System.out.println(random.nextInt(5)); // it may print 0, 1, 2, 3, 4
-        // Random rd = new Random(100000);
-        // System.out.println(rd.nextInt(5)); // it may print 0, 1, 2, 3, 4
-        // System.out.println(rd.nextInt(5)); // it may print 0, 1, 2, 3, 4
-        for (char i = '0';i <='9';i++) {
-            System.out.println(i);
-        }
+        Random random = new Random();
+        System.out.println(random.nextInt(5)); // it may print 0, 1, 2, 3, 4
+        Random rd = new Random(100000);
+        System.out.println(rd.nextInt(5)); // it may print 0, 1, 2, 3, 4
+        System.out.println(rd.nextInt(5)); // it may print 0, 1, 2, 3, 4
+
     }
 }

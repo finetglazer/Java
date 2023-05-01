@@ -1,0 +1,46 @@
+viết vào file chỉ vậy thôi
+
+1.The FileWriter class
+
+public static void main(String[] args) throws IOException {
+        File file = new File("D:\\Java for beginners\\Battleship\\in.txt");// tạo hoặc mở file
+        FileWriter writer = new FileWriter(file); // overwrites the file
+
+        writer.write("Hello");//viet hello
+        writer.write("Java");//viet java 
+
+        writer.close();
+    }
+
+file in.txt : HelloJava
+
+viết thêm thay vì đè lên file 
+FileWriter writer = new FileWriter(file, true); // appends text to the file
+ 
+
+sau khi viết xong lên writer.close() tránh leak dữ liệu 
+
+Hoặc cách 2: 
+
+    File file = new File("/home/username/path/to/your/file.txt");
+
+    try (FileWriter writer = new FileWriter(file)) {
+        writer.write("Hello, World");
+    } catch (IOException e) {
+        System.out.printf("An exception occurred %s", e.getMessage());
+    }
+
+2. The PrintWriter class
+
+class PrintWriter cho pheps ta viết dữ liệu như chữ số , string các kiểu vào file 
+ngoài ra còn thêm print, println, printf 
+    File file = new File("/home/art/Documents/file.txt");
+    try (PrintWriter printWriter = new PrintWriter(file)) {
+        printWriter.print("Hello"); // prints a string
+        printWriter.println("Java"); // prints a string and then terminates the line
+        printWriter.println(123); // prints a number
+        printWriter.printf("You have %d %s", 400, "gold coins"); // prints a formatted string
+    } catch (IOException e) {
+        System.out.printf("An exception occurred %s", e.getMessage());
+    }
+    

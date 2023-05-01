@@ -1,0 +1,107 @@
+1. How to refer to a subclass object
+
+    vd: class Person {
+
+            protected String name;
+            protected int yearOfBirth;
+            protected String address;
+
+            // public getters and setters for all fields
+        }
+
+        class Client extends Person {
+
+            protected String contractNumber;
+            protected boolean gold;
+
+            // public getters and setters for all fields
+        }
+
+        class Employee extends Person {
+
+            protected Date startDate;
+            protected Long salary;
+
+            // public getters and setters for all fields
+        }
+
+    1. Subclass reference.
+
+        Person person = new Person(); // the reference is Person, the object is Person
+        Client client = new Client(); // the reference is Client, the object is Client
+        Employee employee = new Employee(); // the reference is Employee, the object is Employee
+
+    2. Superclass reference
+
+        Person client = new Client(); // the reference is Person, the object is Client
+        Person employee = new Employee(); // the reference is Person, the object is Employee
+
+Lưu ý: k thể dùng biến con mang khai báo của cha. 
+        2 con k kế thừa nhau k khai báo đc. 
+
+2. Accessing fields and methods through a superclass reference
+
+    Khi khai báo là cha thì k thể truy cập các method, field của con được mặc dù ta sử dụng lớp cha cho 
+    bất cứ con nào . 
+    vd: 
+    Person employee = new Employee();
+
+    employee.setName("Ginger R. Lee"); // Ok
+    employee.setYearOfBirth(1980); // Ok
+    employee.setSalary(30000); // Compile-time error, the base class "doesn't know" about the method
+
+
+    The superclass Person doesn't have the method setSalary of the class Employee. 
+    You cannot invoke the method through the superclass reference. The same rule holds for fields.
+
+3. Casting between superclass and subclass
+
+    Cast: long b = int(a)
+
+    You can always cast an object of a subclass to its superclass. 
+    It may also be possible to cast an object from a superclass type to a subclass, 
+    but only if the object is an instance of this subclass, otherwise a ClassCastException will be thrown. 
+    Be careful when casting a class to its subclass.
+
+    Person person = new Client();
+
+    Client clientAgain = (Client) person; // it's ok
+    Employee employee = (Employee) person; // the ClassCastException occurs here
+    
+    
+    -> After successfully casting a superclass to a subclass, we can access subclass-specific members
+
+4. When to use the superclass reference
+
+    Khi nào sử dụng tham chiếu siêu lớp trong thực tế có thể không quá rõ ràng. Hơn nữa, việc sử dụng một tham chiếu siêu lớp áp đặt một số hạn chế đối với việc truy cập các thành viên của lớp. Có hai trường hợp phổ biến:
+
+    xử lý một mảng (hoặc một bộ sưu tập khác) các đối tượng có các loại khác nhau từ cùng một hệ thống phân cấp;
+    một phương thức chấp nhận một đối tượng của lớp cơ sở, nhưng cũng có thể hoạt động với các đối tượng của các lớp con của nó.
+
+        public static void printNames(Person[] persons) {
+        for (Person person : persons) {
+            System.out.println(person.getName());
+        }
+    }
+    Phương thức này sẽ hoạt động đối với một mảng có Personvà các đối Clienttượng Employee.
+
+        Person person = new Employee();
+        person.setName("Ginger R. Lee");
+
+        Client client = new Client();
+        client.setName("Pauline E. Morgan");
+
+        Employee employee = new Employee();
+        employee.setName("Lawrence V. Jones");
+
+        Person[] persons = {person, client, employee};
+
+        printNames(persons);
+        Đầu ra chính xác như chúng ta mong đợi:
+
+        Ginger R. Lee
+        Pauline E. Morgan
+        Lawrence V. JJones
+
+    Còn 1 số cái khác nữa sẽ liên quan đến tính đa hình 
+    

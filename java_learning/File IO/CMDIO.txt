@@ -1,0 +1,49 @@
+all the input into arg be string 
+using Inter.parseInt();
+
+1. Open directory
+
+    Open a command prompt or terminal window.
+    Type cd followed by a space.
+    Type the name of the directory you want to navigate to. For example, if you want to navigate to a directory called "Documents", type cd Documents.
+    Press Enter.
+
+2. compile java into bytecode
+
+    Ex: file Main.java
+    -> javac Main.java
+
+3. run 
+    
+    Ex: 
+        java main {arg} {arg} ...
+
+    args are separated with space and can be used with "" to more clearly
+
+EX:
+    public class CommandLineArgumentsExample {
+    public static void main(String[] args) {
+        // Check if any arguments were provided
+        if(args.length == 0) {
+            System.out.println("No arguments provided.");
+            return;
+        }
+        
+        // Output the arguments
+        System.out.println("Arguments provided:");
+        for(int i = 0; i < args.length; i++) {
+            System.out.println(args[i]);
+        }
+    }
+}
+
+
+javac CommandLineArgumentsExample.java
+
+java CommandLineArgumentsExample "1" "hihi l" "my hell" "13"
+
+Arguments provided:
+1
+hihi l
+my hell
+13

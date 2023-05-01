@@ -1,0 +1,15 @@
+1.  
+        stream
+source   --->   destination 
+input streams, which read data from a source;
+output streams, which write data to a specified destination.
+byte streams that are used to read and write data in bytes;
+char streams that are used to read and write data in characters according to the 16-bit Unicode format.
+
+Stream sử dụng bố nhớ tạm thời để đọc và lưu trữ dữ liệu và nó gọi là buffer stream(bộ nhớ đệm)
+Let's see how buffering works in output streams. When you write data to the stream, it is first accumulated in a buffer. 
+Once the buffer is full, the whole stored data is written to the destination.
+
+Một số luồng đầu vào cũng có tính năng đệm. Khi một luồng đọc dữ liệu lần đầu tiên, 
+nó sẽ đọc nhiều nhất có thể mà bộ đệm có thể chứa. Ngay cả khi chỉ một vài byte hoặc ký tự được yêu cầu, luồng đầu vào được lưu trong bộ đệm sẽ đọc byte cho đến khi bộ đệm đầy. Lần đọc tiếp theo đầu tiên kiểm tra xem có bất kỳ dữ liệu chưa đọc nào trong bộ đệm không. Trong trường hợp bộ đệm chứa một số dữ liệu chưa đọc, 
+luồng sẽ lấy dữ liệu đó từ bộ đệm và không phải tương tác với nguồn. Mặt khác, nó yêu cầu dữ liệu từ nguồn như lần đầu tiên.

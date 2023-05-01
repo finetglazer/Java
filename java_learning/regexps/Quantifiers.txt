@@ -1,0 +1,70 @@
+1. The list of quantifiers
+
++ matches one or more repetitions of the preceding character;
+* matches zero or more repetitions of the preceding character;
+{n} matches exactly n repetitions of the preceding character;
+{n,m} matches at least n but not more than m repetitions of the preceding character;
+{n,} matches at least n repetitions of the preceding character;
+{0,m} matches no more than m repetitions of the preceding character.
+
+Note: just the previous CHARACTER. 
+
+2. The plus quantifier
+
+    Ex: 
+        String regex = "ca+b";
+
+        "cab".matches(regex); // true
+        "caaaaab".matches(regex); // true
+        "cb".matches(regex); // false because it does not have at least one repetition of 'a'
+
+3. The star quantifier
+    Ex:
+        String regex = "A[0-3]*";
+
+        "A".matches(regex);  // true because the pattern matches zero or more repetitions
+        "A0".matches(regex); // true
+        "A000111222333".matches(regex); // true * for [0-3] 
+
+    The ability that check the string has that substring:
+        Ex: 
+            String johnRegex = ".*John.*"; // it matches all strings containing the substring "John"
+
+            String textWithJohn = "My friend John is a computer programmer";
+
+            textWithJohn.matches(johnRegex); // true
+
+            String john = "John";
+
+            john.matches(johnRegex); // true
+
+            String textWithoutJohn = "My friend is a computer programmer";
+
+            textWithoutJohn.matches(johnRegex); // false
+
+4. Specifying the number of repetitions
+
+    Note: An important clarification: no spaces are supposed to be used inside curly braces. 
+    There can be only one or two numbers and, optionally, a comma. Putting spaces inside curly braces leads to the "deactivation" of the quantifier and, as a result, a totally different regular expression. 
+    For example, "a{1, 2}" will match only the exact string "a{1, 2}", not "a" or "aa".
+
+    Ex: 
+        String regex = "[0-9]{4}"; // four digits
+
+        "6342".matches(regex);  // true
+        "9034".matches(regex);  // true
+
+        "182".matches(regex);   // false
+        "54312".matches(regex); // false
+
+        String regex = "1{2,3}";
+
+        "1".matches(regex);    // false
+        "11".matches(regex);   // true
+        "111".matches(regex);  // true
+        "1111".matches(regex); // false
+
+        String regex = "ab{4,}";
+        "abb".matches(regex); // false, not enough 'b'
+        "abbbb".matches(regex); // true
+        "abbbbbbb".matches(regex); // true

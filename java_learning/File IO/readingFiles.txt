@@ -1,0 +1,30 @@
+2 main ways, choose 1
+
+1. Reading data using Scanner
+
+    It is possible to use java.util.Scanner to read data from files.
+
+    First of all, we need to create an instance of java.io.File and then an instance of Scanner passing the file object. 
+    After that, we can get data from the file by using the scanner in the same way as we read from the standard input.
+
+    Suppose you have a string called pathToFile. 
+    It keeps the path to a file that contains a sequence of numbers separated by spaces.
+
+    Ex: 
+         
+        File file = new File(pathToFile);
+        Scanner scanner = new Scanner(file); // it throws FileNotFoundException (checked)
+
+    This code reads each line from the file and outputs it to the standard output.
+        while (scanner.hasNext()) {
+            System.out.print(scanner.nextLine());
+        }
+            first line
+            second line
+            third line
+        -> first line second line third line
+
+2. Reading all text from a file as a single string
+
+    Coz it is String so I dont want to learn
+    

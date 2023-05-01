@@ -1,0 +1,29 @@
+1. The list of shorthands
+    \d is any digit, short for [0-9];
+    \s is a whitespace character (including tab and newline), short for [ \t\n\x0B\f\r];
+    \w is an alphanumeric character (word), short for [a-zA-Z_0-9];
+    \b is a word boundary. This one is a bit trickier: it doesn't match any specific character, 
+    it rather matches a boundary between an alphanumeric character and a non-alphanumeric character (for example, a whitespace character) or a boundary of the string (the end or the start of it). This way, "\ba" matches any sequence of alphanumeric characters that starts with "a", "a\b" matches any sequence of alphanumeric characters that ends with "a", 
+    and "\ba\b" matches a separate "a" preceded and followed by non-alphanumeric characters.
+2. Example
+
+    String regex = "\\s\\w\\d\\s";
+
+    " A5 ".matches(regex); // true
+    " 33 ".matches(regex); // true
+    "\tA4\t".matches(regex); // true, because tabs are whitespace as well
+
+    "q18q".matches(regex); // false, 'q' is not a space
+    " AB ".matches(regex); // false, 'B' is not a digit
+    " -1 ".matches(regex); // false, '-' is not an alphanumeric character, but '1' is OK. 
+
+    -> In the given regular expression "\s\w\d\s", the double backslash "\" is used to escape the following character, 
+    which is itself a special character in the regular expression syntax.
+    More visibility:
+        "\\s" : first "\" handle latter "\" -> "\\s" : "\s"
+    Note that it's important to use double backslashes "\" when defining the regular expression as a Java string, otherwise 
+    the backslash will be treated as an escape character in the string itself and not make it to the regular expression engine. 
+
+    String startRegex = "\\bcat"; // matches the part of the word that starts with "cat"
+    String endRegex = "cat\\b"; // matches the part of the word that ends with "cat"
+    String wholeRegex = "\\bcat\\b"; // matches the whole word "cat"

@@ -1,0 +1,82 @@
+1. The File class
+    To use this need to import java.io.File
+    An object of this class represents an existing or non-existing file or a directory. 
+    The class can be used to manipulate files and directories: creating, removing, accessing properties and more.
+
+    Ex:
+      File file = new File("myfile.txt"); // create a new file object
+      File fileOnWin = new File("D:\\Materials\\java-materials.pdf"); // a file on Windows
+
+    The code will work even if a file or a directory does not actually exist in your file system. 
+    It does not create a new file or directory. 
+    It just represents "a virtual" file or directory that exists already or may be created in the future.
+
+2. Absolute and relative path
+
+    Absolute: 
+        You've already seen examples of files described by an absolute path. 
+        Simply, a path is absolute if it starts with the root element of the file system. 
+        It has the complete information about the file location including the type of the operating system.
+
+    Relative:
+        A relative path is a path that doesn't include the root element of the file system. 
+        This always starts from your working directory. This directory is represented by a . (dot). 
+        A relative path is not complete and needs to be combined with the current directory path in order to reach the requested file.
+
+        Dot notation: In this notation, "." represents the current directory and ".." represents the parent directory. 
+        For example, "./myfile.txt" represents the file "myfile.txt" in the current directory, 
+        and "../mydir/myfile.txt" represents the file "myfile.txt" in the directory "mydir" which is a parent directory of the current directory.
+
+        Ex: 
+        import java.io.File;
+        
+        public class FilePathExample {
+            public static void main(String[] args) {
+                // absolute path
+                File file1 = new File("C:\\Users\\username\\myfile.txt");
+                
+                // relative path
+                File file2 = new File("mydir/myfile.txt");
+                
+                System.out.println("File 1 absolute path: " + file1.getAbsolutePath());
+                System.out.println("File 2 absolute path: " + file2.getAbsolutePath());
+            }
+        }
+
+        To access the parent directory, just write .. (double dot).
+
+3. Basic methods
+
+    String getPath() returns the string path to this file or directory;
+    String getName() returns the name of this file or directory (just the last name of the path)
+    boolean isDirectory() returns true if it is a directory and exists, otherwise, false;
+    boolean isFile() returns true if it is a file that exists (not a directory), otherwise, false;
+    boolean exists() returns true if this file or directory actually exists in your file system, otherwise, false;
+    String getParent() returns the string path to the parent directory that contains this file or directory.
+
+    Ex:
+        File file = new File("/home/username/Documents/javamaterials.pdf");
+
+        System.out.println("File name: " + file.getName());
+        System.out.println("File path: " + file.getPath());
+        System.out.println("Is file: " + file.isFile());
+        System.out.println("Is directory: " + file.isDirectory());
+        System.out.println("Exists: " + file.exists());
+        System.out.println("Parent path: " + file.getParent());
+
+        If file exists:
+
+            File name: javamaterials.pdf
+            File path: /home/username/Documents/javamaterials.pdf
+            Is file: true
+            Is directory: false
+            Exists: true
+            Parent path: /home/username/Documents
+
+        Else:
+            File name: javamaterials1.pdf
+            File path: /home/art/Documents/javamaterials1.pdf
+            Is file: false
+            Is directory: false
+            Exists: false
+            Parent path: /home/art/Documents

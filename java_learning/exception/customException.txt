@@ -1,0 +1,26 @@
+Ngoại lệ tùy chỉnh
+    Chỉ dùng khi thật sự cần thiết như làm app mà có những lỗi mà hàm tiêu chuẩn k có.
+
+1. Cách tạo ngoại lệ tùy chỉnh 
+    Ex: 
+        public class MyAppException extends Exception {
+
+        public MyAppException(String msg) {
+            super(msg);
+        }
+
+        public MyAppException(Exception cause) {
+            super(cause);
+        }
+}
+
+    ngoại lệ myappexception khởi tạo chỉ là con của Exception 
+    Ném thử:
+        public static void someMethod() throws MyAppException {
+            throw new MyAppException("Something bad");
+        }
+
+2. quy tắc 
+
+Thật sự cần ms dùng. 
+khi đặt tên thì chuẩn theo cú pháp vs chữ cuối tên của ngoại lệ cha.

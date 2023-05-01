@@ -1,0 +1,112 @@
+1. Kinds of polymorphism (Các loại đa hình)
+
+    Nói chung, tính đa hình có nghĩa là một thứ gì đó (một đối tượng hoặc một thực thể khác) có nhiều dạng.
+
+    Java provides two types of polymorphism: static (compile-time) and dynamic (run-time) polymorphism. The first one is achieved by method overloading, the second one is based on inheritance and method overriding.
+
+    In this topic, we consider only subtype (runtime) polymorphism that is widely used in object-oriented programming.
+
+2. Runtime polymorphic behavior
+
+    Xin nhắc lại: ghi đè phương thức là khi một lớp con định nghĩa lại một phương thức của lớp cha có cùng chữ ký.
+
+    Đa hình thời gian chạy dựa trên hai nguyên tắc:
+        một biến tham chiếu của lớp cha có thể tham chiếu đến bất kỳ đối tượng kiểu con nào;
+        một phương thức của lớp cha có thể được ghi đè trong một lớp con.
+
+    Tính đa hình trong thời gian chạy hoạt động khi một phương thức bị ghi đè được gọi thông qua biến tham chiếu của một lớp cha. Java xác định trong thời gian chạy phiên bản nào của phương thức (lớp cha/lớp con) sẽ được thực thi dựa trên loại đối tượng được gọi, không phải loại tham chiếu. Nó sử dụng một cơ chế được gọi là gửi phương thức động .
+
+    Ví dụ. Ở đây, bạn có thể thấy một hệ thống phân cấp lớp. Lớp cha MythicalAnimalcó hai lớp con: Chimeravà Dragon. Lớp cơ sở có một phương thức hello. Cả hai lớp con đều ghi đè phương thức này.
+
+    class MythicalAnimal {    
+
+        public void hello() {
+            System.out.println("Hello, I'm an unknown animal");
+        }
+    }
+
+    class Chimera extends MythicalAnimal {
+        @Override
+        public void hello() {
+            System.out.println("Hello! Hello!");
+        }
+    }
+
+    class Dragon extends MythicalAnimal {
+        @Override
+        public void hello() {
+            System.out.println("Rrrr...");
+        }
+    }
+    Chúng ta có thể tạo một tham chiếu đến lớp MythicalAnimalvà gán đối tượng lớp con cho nó:
+
+    MythicalAnimal chimera = new Chimera();
+    MythicalAnimal dragon = new Dragon();
+    MythicalAnimal animal = new MythicalAnimal();
+    Chúng ta cũng có thể gọi các phương thức bị ghi đè thông qua các tham chiếu của lớp cơ sở:
+
+    chimera.hello(); // Hello! Hello!
+    dragon.hello(); // Rrrr...
+    animal.hello(); // Hello, I'm an unknown animal
+
+
+    Điều này có nghĩa là nếu chúng ta có một đối tượng được khai báo với một lớp con của lớp cha, 
+    và chúng ta gọi một phương thức trên đối tượng đó thông qua một biến của lớp cha, 
+    JVM sẽ gọi phương thức của lớp con được ghi đè (nếu có) thay vì phương thức của lớp cha. 
+    Tính đa hình cho phép chúng ta viết mã linh hoạt hơn và tái sử dụng mã dễ dàng hơn, 
+    vì chúng ta có thể đối xử với các đối tượng cùng loại nhưng có các hành vi khác nhau một cách dễ dàng.
+
+3. Đa hình trong một hệ thống phân cấp lớp
+
+    Trong ví dụ sau, chúng ta có một hệ thống phân cấp các tệp. Lớp cha File đại diện cho một mô tả của một tệp trong hệ thống tệp. 
+    Nó có một lớp con tên là ImageFile. Nó ghi đè phương thức getFileInfocủa lớp cha.
+
+    class File {
+
+        protected String fullName;
+
+        // constructor with a single parameter
+
+        // getters and setters
+
+        public void printFileInfo() {
+            String info = this.getFileInfo(); // here is polymorphic behavior!!!
+            System.out.println(info);
+        }
+
+        protected String getFileInfo() {
+            return "File: " + fullName;
+        }
+    }
+
+    class ImageFile extends File {
+
+        protected int width;
+        protected int height;
+        protected byte[] content;
+
+        // constructor
+
+        // getters and setters
+
+        @Override
+        protected String getFileInfo() {
+            return String.format("Image: %s, width: %d, height: %d", fullName, width, height); 
+        }
+    }
+    Lớp cha có một phương thức công khai printFileInfovà một phương thức được bảo vệ getFileInfo. Phương thức thứ hai được ghi đè trong lớp con, nhưng lớp con không ghi đè phương thức đầu tiên.
+
+    Hãy tạo một thể hiện của ImageFilevà gán nó cho một biến của File.
+
+    File img = new ImageFile("/path/to/file/img.png", 480, 640, someBytes); // assigning an object
+    Bây giờ, khi chúng ta gọi phương thức printFileInfo, nó sẽ gọi phiên bản được ghi đè của phương thức getFileInfo.
+
+    img.printFileInfo(); // It prints "Image: /path/to/file/img.png, width: 480, height: 640"
+    
+    Khi chúng ta gọi phương thức printFileInfo trên đối tượng ImageFile thông qua biến img của lớp File, 
+    JVM sẽ tự động gọi phiên bản getFileInfo() của lớp con ImageFile được ghi đè. 
+    Điều này xảy ra bởi vì khi chúng ta gọi phương thức printFileInfo(), 
+    nó đang được gọi trên một đối tượng ImageFile, mặc dù tham chiếu của nó là một biến của lớp cơ sở File. 
+    Vì thế, khi phương thức printFileInfo() gọi phương thức getFileInfo(), JVM sẽ tìm phiên bản getFileInfo() của lớp con ImageFile được ghi đè thay vì phiên bản của lớp cha File. 
+    Điều này cho phép chúng ta sử dụng tính đa hình trong thời gian chạy để đảm bảo rằng phương thức được gọi phù hợp với đối tượng thực tế được tham chiếu bởi biến đó, 
+    thay vì chỉ phụ thuộc vào kiểu tham chiếu của biến đó.

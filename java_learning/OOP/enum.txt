@@ -10,7 +10,7 @@ Một enum được định nghĩa bằng từ khóa "enum" và bao gồm một 
 2. methods for processing enum
     Ex:
         public enum card {
-                VISA, DEBIT,MASTERCARD
+            VISA, DEBIT,MASTERCARD
         }
         
         main:
@@ -38,3 +38,42 @@ Một enum được định nghĩa bằng từ khóa "enum" và bao gồm một 
     for(card x: card.values()) {
         sout(x);
     }
+5. enums with method and constructor
+
+Suppose that we need to display the level of battery charge visually. 
+We want it to be divided into several segments and have a color indication as well,
+
+Ex:
+public enum ChargeLevel {
+
+    FULL(4, "green"),
+    HIGH(3, "green"),
+    MEDIUM(2, "yellow"),
+    LOW(1, "red");
+
+    private final int sections;
+    private final String color;
+
+    ChargeLevel(int sections, String color) {
+        this.sections = sections;
+        this.color = color;
+    }
+
+    public int getSections() {
+        return sections;
+    }
+
+    public String getColor() {
+        return color;
+    }
+}
+
+all the enums are as the same STATIC fields in class -> constructor dont have public 
+--->This means we cannot create enum objects by invoking an enum constructor with the new keyword 
+but have to choose one of the predefined instances instead. 
+
+Keep in mind that if your enum contains fields and methods, 
+you should always define them after the list of constants in the enum.
+
+System.out.println(ChargeLevel.LOW.sections); // 1
+System.out.println(ChargeLevel.LOW.color); // red

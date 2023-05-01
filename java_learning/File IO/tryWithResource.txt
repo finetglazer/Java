@@ -1,0 +1,117 @@
+Như t đã học thì nên đóng file khi kết thúc nhập file. 
+H thì học tại sao nhé. 
+ 
+1. Why close?
+    Khi một luồng đầu vào được tạo, JVM sẽ thông báo cho HĐH về ý định làm việc với một tệp. 
+    Nếu quy trình JVM có đủ quyền và mọi thứ đều ổn, HĐH sẽ trả về một bộ mô tả tệp — một chỉ báo đặc biệt được sử dụng bởi một quy trình để truy cập tệp. 
+    Vấn đề là số lượng bộ mô tả tệp bị hạn chế. 
+    Đây là lý do tại sao điều quan trọng là phải thông báo cho HĐH rằng công việc đã hoàn thành và bộ mô tả tệp được giữ có thể được giải phóng để tiếp tục sử dụng lại. 
+    Trong các ví dụ trước, chúng tôi đã gọi phương thức closecho mục đích này. 
+    Sau khi được gọi, JVM sẽ giải phóng tất cả các tài nguyên hệ thống được liên kết với luồng.
+
+2. cạm bẫy 
+
+    Giải phóng tài nguyên hoạt động nếu JVM gọi closephương thức, nhưng có thể phương thức đó hoàn toàn không được gọi.
+
+    Nhìn vào ví dụ:
+
+        Reader reader = new FileReader("file.txt");
+        // code which may throw an exception
+        reader.close();
+    Giả sử có gì đó không ổn trước khi closegọi và một ngoại lệ được đưa ra. Nó dẫn đến tình huống trong đó phương thức sẽ không bao giờ được gọi và tài nguyên hệ thống sẽ không được giải phóng. Có thể giải quyết vấn đề bằng cách sử dụng cấu trúc try-catch-Last :
+
+        Reader reader = null;
+
+        try {
+            reader = new FileReader("file.txt");
+            // code which may throw an exception
+        } finally {
+            reader.close();
+        }
+
+    Trong ví dụ này và các ví dụ sau, chúng tôi giả định rằng file.txtđiều đó tồn tại và không kiểm tra trường hợp của Readerfor nulltrong finallykhối. 
+    Nó được thực hiện để giữ cho đoạn mã đơn giản nhất có thể, nhưng nó không an toàn trong trường hợp ứng dụng thực.
+
+    Thật không may, giải pháp này vẫn còn một số vấn đề. Nghĩa là, closephương thức này có khả năng tự đưa ra các ngoại lệ. Giả sử, bây giờ có hai trường hợp ngoại lệ: trường hợp đầu tiên được đưa ra bên trong try phần và trường hợp thứ hai do finally phần đó ném ra. Nó dẫn đến việc mất ngoại lệ đầu tiên. Hãy xem tại sao điều này xảy ra:
+
+        void readFile() throws IOException {
+            Reader reader = null;
+            try {
+                reader = new FileReader("file.txt");
+                throw new RuntimeException("Exception1");
+            } finally {
+                reader.close(); // throws new RuntimeException("Exception2")
+            }
+        }
+    Đầu tiên, try khối ném ra một ngoại lệ. Như chúng ta đã biết, finallydù sao thì khối cũng được gọi. 
+    Trong ví dụ của chúng ta, bây giờ closephương thức ném ra một ngoại lệ. 
+    Khi có hai ngoại lệ xảy ra, ngoại lệ nào sẽ bị ném ra ngoài phương thức? Nó sẽ là cái cuối cùng: Exception2trong trường hợp của chúng tôi. 
+    Điều đó có nghĩa là chúng ta sẽ không bao giờ biết rằng try khối đó đã đưa ra một ngoại lệ nào cả.
+
+    Hãy cố gắng suy luận và khắc phục điều này. Ok, chúng tôi không muốn mất ngoại lệ đầu tiên, vì vậy chúng tôi nâng cấp mã một chút và xử lý Exception2ngay sau khi ném:
+
+        void readFile() throws IOException {
+            Reader reader = null;
+            try {
+                reader = new FileReader("file.txt");
+                throw new RuntimeException("Exception1");
+            } finally {
+                try {
+                    reader.close(); // throws new RuntimeException("Exception2")
+                } catch (Exception e) {
+                    // handle the Exception2
+                }
+            }
+        }
+    Bây giờ, đoạn mã ném ra Exception1bên ngoài. 
+    Nó có thể đúng, nhưng chúng tôi vẫn không lưu thông tin về cả hai ngoại lệ và đôi khi chúng tôi không muốn mất nó. 
+    Vì vậy, bây giờ, hãy xem làm thế nào chúng ta có thể xử lý tình huống này một cách tốt đẹp.
+
+3. giải pháp 
+
+    Một cách đơn giản và đáng tin cậy được gọi là dùng thử tài nguyên đã được giới thiệu trong Java 7.
+
+        try (Reader reader = new FileReader("file.txt")) {
+            // some code
+        }
+    Kể từ Java 9, bạn có thể khởi tạo một luồng đầu vào bên ngoài cấu trúc và sau đó khai báo nó trong dấu ngoặc tròn:
+
+        Reader reader = new FileReader("file.txt");
+        try (reader) {
+            // some code
+        }
+
+    Bây giờ hãy quay lại trường hợp hai ngoại lệ của chúng ta. Nếu cả trykhối và closephương thức ném ngoại lệ Exception1và Exception2:
+
+    void readFile() throws IOException {
+        try (Reader reader = new FileReader("file.txt")) {
+            throw new RuntimeException("Exception1");
+        }
+    }
+    phương thức đưa ra ngoại lệ kết quả, bao gồm thông tin về cả hai ngoại lệ. Nó trông như thế này:
+
+    Exception in thread "main" java.lang.RuntimeException: Exception1
+        at ...
+        Suppressed: java.lang.RuntimeException: Exception2
+            at ...
+
+4. Tài nguyên có thể đóng
+    Chúng tôi đã xử lý luồng đầu vào tệp để minh họa cách sử dụng tài nguyên dùng thử. 
+    Tuy nhiên, không chỉ tài nguyên dựa trên tệp sẽ được giải phóng. 
+    Đóng là rất quan trọng đối với các nguồn bên ngoài khác như kết nối cơ sở dữ liệu hoặc web. 
+    Các lớp xử lý chúng có một closephương thức và do đó có thể được bao bọc bởi câu lệnh thử tài nguyên.
+
+    hãy xem xét java.util.Scanner. 
+    Trước đó, chúng tôi đã sử dụng Scannerđể đọc dữ liệu từ đầu vào tiêu chuẩn, nhưng nó cũng có thể đọc dữ liệu từ một tệp. 
+    Scannercó một closephương pháp để giải phóng các nguồn bên ngoài.
+
+    Hãy xem xét một ví dụ về chương trình đọc hai số nguyên được phân tách bằng dấu cách từ một tệp và in chúng:
+
+        try (Scanner scanner = new Scanner(new File("file.txt"))) {
+            int first = scanner.nextInt();
+            int second = scanner.nextInt();
+            System.out.println("arguments: " + first + " " + second);
+        }
+    Giả sử đã xảy ra sự cố và nội dung tệp là 123 not_number, trong đó đối số thứ hai là tệp String. 
+    Nó dẫn đến một java.util.InputMismatchExceptionthời gian phân tích cú pháp đối số thứ hai. 
+    Try-with-resources đảm bảo rằng các tài nguyên liên quan đến tệp được phát hành đúng cách.

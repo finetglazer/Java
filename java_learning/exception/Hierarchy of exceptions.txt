@@ -57,10 +57,53 @@ Ex: dive the 0;
 public static void main(String[] args) {
     try {
         divide(10, 0);
-    } catch (ArithmeticException e) {
+    } catch (ArithmeticException e) {    // ArithmeticException can be change with Exception
         System.out.println("Caught exception: " + e.getMessage());
     }
 }
 
 Checked exceptions are represented by the Exception class not RuntimeException and RuntimeException does not use the throw 
 coz the excetion of it cannot be interfere.
+
+
+MULTIPLE Exception
+
+try {
+    // code that throws exceptions
+} catch (IOException e) {
+    // handling the IOException and its subclasses    
+} catch (Exception e) {
+    // handling the Exception and its subclasses
+}
+
+Important, the catch block with the base class has to be written below all blocks with subclasses. 
+In other words, the more specialized handlers (like IOException) must be written before the more general ones (like Exception). 
+Otherwise, the code won't compile.
+
+try {
+    // code that may throw exceptions
+} catch (SQLException | IOException e) {
+    // handling SQLException, IOException and their subclasses
+    System.out.println(e.getMessage());
+} catch (Exception e) {
+    // handling any other exceptions
+    System.out.println("Something goes wrong");
+}
+
+In the code above SQLException and IOException (alternatives) are separated by the | character. 
+They will be handled in the same way.
+
+Note that alternatives in a multi-catch statement cannot be each other's subclasses.
+
+5. The finally block
+
+There is another possible block called finally. 
+All statements present in this block will always execute regardless of whether an exception occurs in the try block or not.
+try {
+    // code that may throw an exception
+
+} catch{
+    //
+} finally {   
+    // code always be executed
+}

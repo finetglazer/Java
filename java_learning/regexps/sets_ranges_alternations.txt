@@ -1,0 +1,64 @@
+1. The set of characters
+    
+    Each set corresponds to a single character in the string, 
+    but what character exactly it can be is defined by the content of the set. 
+    The set is written in square brackets, []. 
+    For example, the set "[abc]" means that a single character "a", "b" or "c" can match it. 
+    Take a look at the example below:
+
+    Ex:
+    String pattern = "[bcr]at"; // it matches strings "bat", "cat", "rat", but not "fat"
+
+    "rat".matches(pattern); // true
+    "fat".matches(pattern); // false
+
+    String pattern = "[ab]x[12]"; // can match a or b followed by x followed by either 1 or 2
+
+2. The range of characters
+
+    Ex:
+        String anyDigitPattern = "[0-9]"; // matches any digit from 0 to 9
+        String anyLetterPattern = "[a-zA-Z]"; // matches any letter "a", "b", ..., "A", "B", ...
+    Note, that although the range [A-z] is technically valid, 
+    it includes additional symbols that are placed between uppercase and lowercase letters in the ASCII table.
+    As you can see, you can easily put several ranges in one set and mix them with separate characters in any order:
+    Ex:
+        String anyLetterPattern = "[a-z!?.A-Z]"; // matches any letter and "!", "?", "."
+3. Excluding characters
+
+    We can write a set that will match everything except for the characters mentioned in it. 
+    To do that, we write the hat character ^ as the first one in the set.
+    Ex:
+        String regex = "[^abc]"; // matches everything except for "a", "b", "c"
+
+        "a".matches(regex); // false
+        "b".matches(regex); // false
+        "c".matches(regex); // false
+        "d".matches(regex); // true
+        The same works for ranges:
+
+        String regex = "[^1-6]";
+
+        "1".matches(regex); // false
+        "2".matches(regex); // false
+        "0".matches(regex); // true
+        "9".matches(regex); // true
+
+4. Escaping characters in sets
+     
+    Ex:
+        String pattern = "[\\[\\]]"; // matches "[" and "]"
+
+5. Alternations
+
+    The vertical bar | is used to match character SEQUENCES either before or after the symbol.
+    Ex: 
+        String pattern = "yes|no|maybe"; // matches "yes", "no", or "maybe", but not "y" or "e"
+        "no".matches(pattern); // true
+
+    The vertical bar can be used together with parentheses, which designate the boundaries of alternating substrings: 
+    everything within the parentheses is an optional substring that can match the alternation block:
+
+    Ex:
+        String pattern = "(b|r|go)at"; // matches "bat", "rat" or "goat"
+        String answer = "The answer is definitely (yes|no|maybe)";

@@ -1,0 +1,41 @@
+A tool for processing a text.
+
+1.  Why regular expressions?
+    They can either check if a whole string or its substring matches the given pattern or replace the substring with another one.
+
+2. Matching on examples: more PARKs
+
+    when you perform a Ctrl+F search on a web page:
+    We can easily solve this problem using the PARK pattern. 
+    The pattern means that symbols P, A, R, K in a word must follow each other from the left end to the right in a word. 
+    We suppose that the whole word matches the pattern if any part (substring) of the word matches it.
+    Here are some explanations:
+
+    the word PARK exactly matches our pattern;
+    the word SPARK matches our pattern because it has a suitable substring;
+    the word PARKING matches our pattern due to the same reason;
+    the word MARK doesn't match our pattern because of the letter M;
+    the word QUARKS doesn't match our pattern since it does not have a suitable part that matches PARK.
+
+    In regular expressions, the case of characters is relevant: park is not the same as PARK, i.e., they do not match.
+
+3. The power of regular expressions
+    Finding substrings is not very impressive, though. 
+    The real power of regular expressions comes when you start using special metacharacters called wildcards.
+
+4. The dot character
+    The dot character . matches any single character including letters, digits, and so on, except for the newline character, unless it is specified.
+    The last example:
+        pattern: ".ARK"
+        -> Hooray, both words MARK and QUARKS match the new pattern! But the WARM word does not.
+        With .RK. -> which is matched by WARM, CLARA, PART and so on.
+
+5. The question mark
+    The question mark ? is a special character that means “the preceding character or nothing". 
+    The question mark ? signals that the character before it can occur once or zero times in a string to match the pattern. 
+    When can we use it?
+    Ex:
+        colou?r will match colour & color 
+    Let's return to our previous example. The word ARK does not match the .ARK pattern. 
+    -> But if we add ? right after the dot character .?ARK, 
+    the word ARK will match the new pattern since the first character is optional now.

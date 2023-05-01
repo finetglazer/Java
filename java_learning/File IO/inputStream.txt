@@ -1,0 +1,116 @@
+1. nguồn
+
+như là txt, file, 
+
+2. Character streams
+
+nguồn sẽ là FileReader, CharArrayReader, StringReader, etc.
+
+The class name indicates what type of source it uses as input and usually ends with Reader, 
+since all such classes extend the java.io.Reader class
+
+int read() reads a single character. If the end of the stream is reached, the method returns the value -1. Otherwise, it returns the numerical representation of the character according to the current encoding;
+
+int read(char[] cbuf) reads a sequence of characters into the passed array up to its capacity and returns the number of characters that were actually read. It can also return -1 in case no data was read;
+
+int read(char[] cbuf, int off, int len) reads characters into a portion of an array.
+
+Another important method is void close() that should be invoked after a stream was used.
+
+If you're familiar with the try-with-resources construction, you know it is a better way to prevent resource leaks. 
+For now, we're skipping it for learning purposes.
+
+3. Let's consider FileReader as an example of the Reader classes. FileReader has a set of constructors. Here are some of them:
+
+new FileReader(String fileName)
+
+new FileReader(String fileName, Charset charset)
+
+new FileReader(File file)
+
+new FileReader(File file, Charset charset)
+
+Now let's try to read a file. Say we have a file file.txt with the following content: input stream.
+Ex: 
+    Reader reader = new FileReader("file.txt");
+
+    char first = (char) reader.read(); // i
+    char second = (char) reader.read(); // n
+
+    char[] others = new char[12];
+    int number = reader.read(others); // 10
+
+    After running the code, others will contain ['p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', '\u0000', '\u0000'].
+    vì k còn kí tự nên hàm others chỉ có 10 ptu -> number = 10
+
+    Another common way of reading a text data stream is to read it char by char until the stream is closed:
+
+        FileReader reader = new FileReader("file.txt");
+
+        int charAsNumber = reader.read();
+        while(charAsNumber != -1) {
+            char character = (char) charAsNumber;
+            System.out.print(character);
+            charAsNumber = reader.read();
+        }
+        reader.close();
+
+    When -1 is returned, it means the end of stream was reached, so that is there's nothing left to read.
+
+4. Byte streams 
+
+    1 ví dụ cơ bản mà ta học từ đầu là Scanner scanner = new Scanner (System.in);
+    Có nhiều loại khác mà đặc biệt vl như : ByteArrayInputStream is used for reading from byte[]
+                                            FileInputStream is dedicated for files, AudioInputStream is a way of consuming audio input and there's more.
+    
+    The class name of a byte stream indicates what type of source it uses as input and usually ends with InputStream, 
+    since all such classes extend the java.io.InputStreamclass.
+    All byte stream classes have methods for reading similar to character input streams:
+        abstract int read() reads a single byte;
+        int read(byte[] b) reads a number of bytes and stores them in a byte array;
+        byte[] readAllBytes() reads all bytes.
+
+    The method that reads bytes into an array, returns an int value. It is the number of bytes that were actually read from the source. If -1 value is returned it is a sign that no bytes were read.
+
+    Each input stream class also has a void close() method to release system resources.
+
+5. Example of a byte stream
+
+    giả sử ta có file text.txt và dùng FileInputstream: 
+    new FileInputStream(String pathToFile)
+
+    new FileInputStream(File file)
+
+    FileInputStream inputStream = new FileInputStream("file.txt");
+
+    We are going to read the first five bytes:
+
+        byte[] bytes = new byte[5];
+        int numberOfBytes = inputStream.read(bytes);
+        System.out.println(numberOfBytes); // 5
+        inputStream.close();
+        Now bytescontains ['i', 'n', 'p', 'u', 't'].
+
+    -> Now bytescontains ['i', 'n', 'p', 'u', 't'].
+
+6. Kiểm tra luồng đầu vào
+
+    Khi kiểm tra các chương trình của bạn trong IDE, bạn nhập văn bản rồi nhấn Enter để đẩy văn bản đã nhập vào luồng đầu vào, giống như khi bạn thực hiện với Scanner. 
+    Trong trường hợp này, ký hiệu cuối dòng cũng được thêm vào làm ký hiệu cuối cùng của chuỗi ký tự đã nhập và sẽ được đọc thành một mảng nếu đó là điều bạn làm.
+
+    Nhấn Enter không đóng luồng đầu vào . Nó vẫn được mở và chờ đầu vào. Để thực sự đóng luồng đầu vào, bạn cần tạo sự kiện kết thúc tệp . 
+    Trong IDEA, bạn nên nhấn Ctrl+D (Windows và Linux) hoặc <command>+D (MacOS).
+
+7. Tôi nên sử dụng loại luồng nào?
+
+    Sự khác biệt chính giữa luồng byte và luồng ký tự là 
+    luồng byte đọc dữ liệu đầu vào dưới dạng byte trong khi luồng ký tự hoạt động với ký tự.
+
+    Máy tính chỉ hiểu các chuỗi byte. Từ quan điểm này, bất kỳ dữ liệu nào cũng là một tập hợp các byte và luồng đầu vào byte là một cách phổ biến để đọc bất kỳ loại dữ liệu nào. 
+    Đối với máy tính, các ký tự vẫn là sự kết hợp của các byte được xác định bởi đặc tả bộ ký tự.
+
+    Ngược lại, là con người, chúng ta quen xử lý các chuỗi ký tự. 
+    Luồng nhập ký tự nhằm mục đích đọc dữ liệu bao gồm các ký tự. 
+    Về cơ bản, chúng vẫn đọc byte, nhưng chúng ngay lập tức mã hóa byte thành ký tự.
+
+    Nếu bạn cần đọc văn bản, hãy sử dụng luồng nhập ký tự. Nếu không, ví dụ: trong khi đọc âm thanh, video, zip, v.v., hãy sử dụng luồng đầu vào byte.
