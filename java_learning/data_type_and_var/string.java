@@ -48,5 +48,7 @@ public class string {
 
         System.out.println(second.equals(secondInUpperCase)); // false, the strings have different cases
         System.out.println(second.equalsIgnoreCase(secondInUpperCase)); // true, it ignores cases 
+
+
     }
 }
