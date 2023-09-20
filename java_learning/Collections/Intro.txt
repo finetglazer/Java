@@ -1,0 +1,43 @@
+Creating an instance of Myclass:
+
+MyClass obj = new MyClass(); // Creating an instance of MyClass
+
+
+Create structure in java
+
+MyGenericClass<V> genericObj = new MyGenericClass<>(); // Using the diamond operator to infer the type parameter
+
+1. Interfaces:
+
+The Java Collections Framework defines several core interfaces that represent different types of collections. Some of the most important ones include:
+
+Collection: The root interface for all collection types.
+List: An ordered collection of elements where duplicates are allowed (e.g., ArrayList, LinkedList).
+Set: A collection of unique elements (e.g., HashSet, TreeSet).
+Map: A collection of key-value pairs (e.g., HashMap, TreeMap).
+Queue: A collection that represents a queue data structure (e.g., LinkedList for queues).
+
+2. Classes:
+
+Java provides various classes that implement the collection interfaces. Some commonly used classes include ArrayList, LinkedList, HashSet, TreeSet, HashMap, TreeMap, and more.
+
+Some collection classes, such as TreeSet and TreeMap, maintain elements in sorted order. You can also use the Collections class to sort lists.
+
+
+In Java, common data structures are fundamental building blocks used for storing, organizing, and manipulating data efficiently. These data structures are part of the Java Collections Framework and include classes and interfaces designed to handle various data storage and retrieval types. Here are some common data structures in Java:
+
+COMMON STRUCTURES
+
+ArrayList:
+LinkedList:
+HashSet:
+TreeSet:
+HashMap:
+TreeMap:
+Queue (e.g., LinkedList for queues):
+PriorityQueue:
+first.
+Stack:
+Hashtable:
+Vector:
+BitSet:

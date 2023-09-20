@@ -1,0 +1,54 @@
+1. No Duplicates:
+
+2. Unordered:
+
+3. Interfaces:
+
+The primary Set interface is java.util.Set. There are subinterfaces such as SortedSet and NavigableSet that provide additional features related to sorting and navigation.
+
+4. Implementations:
+
+Java provides several Set implementations, including:
+HashSet: Stores elements in a hash table, making it efficient for lookups.
+LinkedHashSet: Maintains insertion order in addition to uniqueness.
+TreeSet: Stores elements in sorted order based on natural or custom ordering.
+EnumSet: Specifically designed for use with enum types.
+CopyOnWriteArraySet: A thread-safe implementation that allows for concurrent reads.
+And more...
+
+5. Common Operations:
+
+Common Set operations include adding elements (add), removing elements (remove), checking if an element exists in the Set (contains), and iterating through elements.
+Null Values:
+
+Most Set implementations do not allow null values. Attempting to add a null value will result in an exception. However, there are exceptions like HashSet that permit one null value.
+
+EX: 
+import java.util.HashSet;
+import java.util.Set;
+
+public class SetExample {
+    public static void main(String[] args) {
+        // Create a HashSet of strings
+        Set<String> set = new HashSet<>();
+
+        // Add elements to the set
+        set.add("Apple");
+        set.add("Banana");
+        set.add("Cherry");
+
+        // Attempt to add a duplicate (will not be added)
+        set.add("Apple");
+
+        // Check if an element exists in the set
+        boolean containsBanana = set.contains("Banana"); // true
+
+        // Remove an element from the set
+        set.remove("Cherry");
+
+        // Iterating through the set
+        for (String fruit : set) {
+            System.out.println(fruit);
+        }
+    }
+}
