@@ -1,0 +1,36 @@
+
+1. FileReader and BufferedReader are two Java classes commonly used together for reading text from files efficiently. They serve different purposes, and the combination of these two classes helps improve the performance of reading text data from files. Here's the relationship and how they work together:
+
+FileReader:
+
+FileReader is a class in Java that reads characters from a file. It's used to read text data from a file character by character.
+
+FileReader alone is not very efficient for reading large text files because it performs file I/O for each character, which can lead to slow reading performance.
+
+Example of using FileReader:
+
+java
+Copy code
+FileReader fileReader = new FileReader("example.txt");
+int charCode;
+while ((charCode = fileReader.read()) != -1) {
+    char character = (char) charCode;
+    // Process the character here
+}
+fileReader.close();
+2. BufferedReader:
+
+BufferedReader is a class that provides efficient character-based reading from an input stream, such as a file. It's often used to wrap around a FileReader to improve reading performance.
+
+BufferedReader reads data in larger chunks (a buffer) from the underlying input stream and stores it in memory. This reduces the number of actual file I/O operations, improving efficiency.
+
+Example of using BufferedReader with FileReader:
+
+java
+Copy code
+BufferedReader bufferedReader = new BufferedReader(new FileReader("example.txt"));
+String line;
+while ((line = bufferedReader.readLine()) != null) {
+    // Process the line of text here
+}
+bufferedReader.close();
