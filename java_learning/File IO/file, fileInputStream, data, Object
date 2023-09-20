@@ -83,3 +83,17 @@ try (FileInputStream fileInputStream = new FileInputStream("data.dat");
 } catch (IOException | ClassNotFoundException e) {
     e.printStackTrace();
 }
+
+5. BufferedReader:
+
++ BufferedReader is primarily used for reading text data from files efficiently. It's designed for reading character data line by line or in chunks.
+
+It's often wrapped around other Reader classes (e.g., FileReader, InputStreamReader) to provide buffering, which improves reading performance, especially when reading text files.
+
+BufferedReader is suitable for reading text files where the data is organized as lines of characters.
+
++ FileInputStream is used for reading raw binary data from files. It's designed for reading bytes from a file, not for interpreting the data as text.
+
+It's commonly used to read various types of files, including binary files, image files, or any file where you need to work with the raw byte data.
+
+FileInputStream doesn't provide any text-specific features, such as line-by-line reading or character encoding decoding. It reads bytes without any interpretation of their meaning.
