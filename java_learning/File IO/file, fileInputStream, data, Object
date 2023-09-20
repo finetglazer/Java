@@ -1,0 +1,85 @@
+`FileInputStream` and `File` are two different classes in Java used for different purposes when dealing with files.
+
+1. **FileInputStream**:
+
+   - `FileInputStream` is a class that represents an input stream for reading bytes from a file.
+
+   - It is used to read the raw binary data from a file.
+
+   - You typically use `FileInputStream` when you want to read the contents of a file byte by byte or in small chunks.
+
+   - Example of using `FileInputStream`:
+     ```java
+     FileInputStream fis = new FileInputStream("example.txt");
+     int byteData;
+     while ((byteData = fis.read()) != -1) {
+         // Process the raw binary data here
+     }
+     fis.close();
+     ```
+
+2. **File**:
+
+   - `File` is a class that represents a file or directory's path in the file system. It does not read or write data from or to a file.
+
+   - It is used for operations related to file metadata and file manipulation (e.g., creating, deleting, checking existence, getting file properties).
+
+   - You typically use `File` when you need to work with files or directories, such as checking if a file exists, creating a new file, getting the file's absolute path, etc.
+
+   - Example of using `File`:
+     ```java
+     File file = new File("example.txt");
+     if (file.exists()) {
+         // File exists, perform operations like renaming or deleting
+     }
+     ```
+
+In summary, `FileInputStream` is used to read the contents of a file, while `File` is used to work with file metadata and perform file-related operations. They serve different purposes, and you often use them in combination to read and manipulate files effectively.
+
+3. DataInputStream:
+
+DataInputStream is another class in Java used for reading binary data from an input stream. It is often used in conjunction with FileInputStream or other input streams to read data in a structured format, such as primitive data types or objects serialized using ObjectOutputStream. Here are some key points about DataInputStream:
+
+Data Input Stream:
+
+DataInputStream is a subclass of FilterInputStream and provides methods for reading primitive data types (e.g., int, double, boolean) from an input stream.
+
+It offers methods like readInt(), readDouble(), readBoolean(), etc., to read data in a type-safe manner.
+
+Example of using DataInputStream to read an integer:
+
+java
+Copy code
+FileInputStream fileInputStream = new FileInputStream("data.dat");
+DataInputStream dataInputStream = new DataInputStream(fileInputStream);
+
+int intValue = dataInputStream.readInt();
+Usage with FileInputStream:
+
+Often, you use FileInputStream to open a file for reading raw binary data and then wrap it with a DataInputStream to read structured data from that file.
+
+Example of using FileInputStream and DataInputStream together:
+
+java
+Copy code
+try (FileInputStream fileInputStream = new FileInputStream("data.dat");
+     DataInputStream dataInputStream = new DataInputStream(fileInputStream)) {
+    int intValue = dataInputStream.readInt();
+    double doubleValue = dataInputStream.readDouble();
+    boolean booleanValue = dataInputStream.readBoolean();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+4. ObjectInputStream
+
+It's like DataInputStream(subclass of FileInputStream) but it was born to support serialized data(Arraylist, hashmap,...) 
+Instead of using readInt(), readDouble(),..., it uses readObject()
+
+Ex:
+try (FileInputStream fileInputStream = new FileInputStream("data.dat");
+     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+    MyClass myObject = (MyClass) objectInputStream.readObject();
+} catch (IOException | ClassNotFoundException e) {
+    e.printStackTrace();
+}
