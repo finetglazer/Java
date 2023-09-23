@@ -43,7 +43,8 @@ public class Main {
     }
 }
 
-* Alternative, lambda
+******************
+Alternative, lambda
 List<MyClass> myList = new ArrayList<>();
 // Populate the list...
 
@@ -55,6 +56,17 @@ String str1 = "apple";
 String str2 = "banana";
 
 int result = str1.compareTo(str2); // Returns a negative value (-1 in this case)
+
+******************
+
+WAY 3 -> very convenient
+
+class nameClass implements Comparable<nameClass> {// Comparable != Comparator
+	@Override
+	public int compareTo(nameClass obj) {// compareTo is keyWord , mean: 'this' compare to 'obj'
+		...	
+	}
+}
 *************
 When u have the same valude and want to keep the initial order
 
@@ -63,6 +75,4 @@ if (comparison == 0) {
                 return myList.indexOf(str1) - myList.indexOf(str2);
             }
 
-******************
-
-
+*****************
