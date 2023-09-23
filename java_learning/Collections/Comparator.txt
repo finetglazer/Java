@@ -1,0 +1,68 @@
+
+1. Create Your Custom Comparator:
+
+First, define a class that implements the Comparator interface. This interface requires you to implement the compare() method, where you specify the custom comparison logic.
+
+java
+Copy code
+import java.util.Comparator;
+
+public class MyComparator implements Comparator<MyClass> {
+    @Override
+    public int compare(MyClass obj1, MyClass obj2) {
+        // Implement your custom comparison logic here
+        // Return a negative value if obj1 should come before obj2
+        // Return a positive value if obj1 should come after obj2
+        // Return 0 if obj1 and obj2 are considered equal in your sorting logic
+    }
+}
+
+*NOTE: In Java, the public access modifier is used to indicate that a class is accessible from outside the package. When you declare a class as public, it should be in a file with the same name as the class. For example, if you have a class named MyComparator declared as public, it should be in a file named MyComparator.java. This is a Java naming convention.
+
+2. Use the Custom Comparator for Sorting:
+
+Once you have your custom Comparator defined, you can use it to sort collections of objects. Here's an example using Collections.sort():
+
+java
+Copy code
+import java.util.Collections;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<MyClass> myList = new ArrayList<>();
+        // Populate the list...
+
+        // Create an instance of your custom comparator
+        MyComparator myComparator = new MyComparator();
+
+        // Sort the list using your custom comparator
+        Collections.sort(myList, myComparator);
+        
+        // Now, myList is sorted according to your custom logic
+    }
+}
+
+* Alternative, lambda
+List<MyClass> myList = new ArrayList<>();
+// Populate the list...
+
+Collections.sort(myList, (obj1, obj2) -> obj1.getName().compareTo(obj2.getName()));
+
+-WHEN U COMPARE STRING
+
+String str1 = "apple";
+String str2 = "banana";
+
+int result = str1.compareTo(str2); // Returns a negative value (-1 in this case)
+*************
+When u have the same valude and want to keep the initial order
+
+if (comparison == 0) {
+                // If strings are equal, compare their initial order
+                return myList.indexOf(str1) - myList.indexOf(str2);
+            }
+
+******************
+
+

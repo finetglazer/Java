@@ -1,0 +1,63 @@
+VD: Pair
+
+public class Pair<A, B> {
+    private A first;
+    private B second;
+
+    public Pair(A first, B second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    public A getFirst() {
+        return first;
+    }
+
+    public B getSecond() {
+        return second;
+    }
+
+    public void setFirst(A first) {
+        this.first = first;
+    }
+
+    public void setSecond(B second) {
+        this.second = second;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + first + ", " + second + ")";
+    }
+}
+
+In this Pair class:
+
+It has two generic type parameters, A and B, which allow you to create pairs of different types.
+
+The constructor accepts two values of type A and B to initialize the pair.
+
+Getter and setter methods are provided for both the first and second values.
+
+The toString method is overridden to provide a meaningful string representation of the pair.
+
+You can use this Pair class to create pairs of different types and work with them in your Java code. Here's an example of how to use it:
+
+java
+Copy code
+public class PairExample {
+    public static void main(String[] args) {
+        Pair<String, Integer> stringIntPair = new Pair<>("Hello", 42);
+        Pair<Double, Boolean> doubleBooleanPair = new Pair<>(3.14, true);
+
+        System.out.println("String-Integer Pair: " + stringIntPair);
+        System.out.println("Double-Boolean Pair: " + doubleBooleanPair);
+
+        stringIntPair.setSecond(100);
+        System.out.println("Updated String-Integer Pair: " + stringIntPair);
+
+        double sum = stringIntPair.getFirst().length() + doubleBooleanPair.getFirst();
+        System.out.println("Sum of lengths: " + sum);
+    }
+}
+This Pair class allows you to create pairs with different types, set and retrieve values, and perform operations on the pair elements.
