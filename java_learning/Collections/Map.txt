@@ -1,0 +1,60 @@
+1. Key-Value Pairs:
+
+2.Interfaces:
+
+The primary Map interface is java.util.Map. There are subinterfaces and classes that implement this interface.
+
+3. Implementations:
+
+Java provides several Map implementations, including:
+HashMap: Stores key-value pairs in a hash table, providing fast lookup.
+LinkedHashMap: Maintains insertion order in addition to key uniqueness.
+TreeMap: Stores key-value pairs in sorted order based on natural or custom ordering of keys.
+Hashtable: A legacy class that is similar to HashMap but is synchronized.
+ConcurrentHashMap: A thread-safe implementation suitable for concurrent access.
+WeakHashMap: Allows keys to be garbage-collected if they are not used elsewhere.
+And more...
+
+4. Common Operations:
+
+Common Map operations include adding key-value pairs (put), retrieving values by key (get), removing key-value pairs (remove), checking if a key exists in the Map (containsKey), and iterating through keys or key-value pairs.
+
+5. Null Values:
+
+Most Map implementations allow null values and one null key. This means you can store a key-value pair where the key or the value is null.
+
+6. No Duplicate Keys:
+
+Each key in a Map must be unique. If you attempt to add a key-value pair with a duplicate key, it will overwrite the existing value associated with that key.
+
+EX: 
+import java.util.HashMap;
+import java.util.Map;
+
+public class MapExample {
+    public static void main(String[] args) {
+        // Create a HashMap with keys and values of type String
+        Map<String, Integer> map = new HashMap<>();
+
+        // Add key-value pairs to the map
+        map.put("Alice", 25);
+        map.put("Bob", 30);
+        map.put("Carol", 28);
+
+        // Retrieve values by key
+        int aliceAge = map.get("Alice"); // 25
+
+        // Check if a key exists in the map
+        boolean containsKey = map.containsKey("David"); // false
+
+        // Remove a key-value pair
+        map.remove("Bob");
+
+        // Iterating through keys and values
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String name = entry.getKey();
+            int age = entry.getValue();
+            System.out.println(name + ": " + age);
+        }
+    }
+}
