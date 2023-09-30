@@ -1,0 +1,6 @@
+public double roundToDecimalPlaces(double number, int decimalPlaces) {
+        double multiplier = Math.pow(10, decimalPlaces);
+        return Math.round(number * multiplier) / multiplier;
+    }
+
+nothing special but 7.5 -> 8.0 instead of Math.round -> 7
