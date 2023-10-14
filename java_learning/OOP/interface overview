@@ -15,13 +15,39 @@ public interface Edible {
  public abstract String howToEat(); 
 
 
-OVERVIEW EXMAPLE: 
+OVERVIEW EXMAPLE to compare between interface and abstract class:
 
-public interface Edible {
- /** Describe how to eat */
- public abstract String howToEat();  //-> common operation
+interface Edible {
+    String howToEat();
+
 }
 
-Abstract class Fruit implements Edible {
-  
+abstract class Animal {
+    private double weight;
+    
+    public double getWeight() {
+        return weight;
+    }
+    
+    public abstract String sound();
 }
+
+class Chicken extends Animal implements Edible {
+    @Override
+    public String howToEat() {
+        return "keke";
+    }
+
+    @Override
+    public String sound() {
+        return "huhu";
+    }
+
+main {
+ Animal chicken = new Chicken();
+ sout(chicken.sound());
+
+  }
+}
+
+-> huhu
