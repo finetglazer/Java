@@ -5,7 +5,7 @@ public abstract class GeometricObject {
     private String color;
     ...
 
-    public abstract double getArea();
+    public abstract double getArea(); // abstract method
     public abstract double getPerimeter();
 
  }
@@ -16,6 +16,10 @@ public class Circle extends GeometricObject {
 
 public class Rectangle extends GeometricObject {
   
+}
+
+public static boolean equalArea(GeometricObject obj1, GeometricObject obj2) {
+    return obj1.getArea() == obj2.getArea();
 }
 
 main {
