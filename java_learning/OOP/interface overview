@@ -1,0 +1,27 @@
+INTERFACES
+An interface is a class-like construct for defining COMMON OPERATIONS for objects
+
+In many ways an interface is similar to an abstract class, but its intent is to specify common 
+behavior for objects of related classes or unrelated classes. For example, using appropriate 
+interfaces, you can specify that the objects are comparable, edible, and/or cloneable
+
+modifier interface InterfaceName {
+ /** Constant declarations */
+ /** Abstract method signatures */
+}
+Here is an example of an interface:
+public interface Edible {
+ /** Describe how to eat */
+ public abstract String howToEat(); 
+
+
+OVERVIEW EXMAPLE: 
+
+public interface Edible {
+ /** Describe how to eat */
+ public abstract String howToEat();  //-> common operation
+}
+
+Abstract class Fruit implements Edible {
+  
+}
