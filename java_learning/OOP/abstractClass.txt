@@ -70,3 +70,5 @@
                 
         dog.say(); // it prints "Woof!"
         cat.say(); // it prints "Meow!"
+
+-> this is just the basic overview about ABSTRACT CLASS
