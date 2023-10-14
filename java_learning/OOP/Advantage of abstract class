@@ -1,0 +1,39 @@
+public abstract class GeometricObject {
+
+    private String color = "white";
+    private boolean filled;
+    private String color;
+    ...
+
+    public abstract double getArea();
+    public abstract double getPerimeter();
+
+ }
+
+public class Circle extends GeometricObject {
+  
+}
+
+public class Rectangle extends GeometricObject {
+  
+}
+
+main {
+  GeometricObject obj1 = new Circle(5);
+  GeometricObject obj2 = new Rectangle(5,3);
+  sout(equalArea(obj1, obj2));
+  display(obj1);
+  display(obj2);
+}
+
+
+->  The JVM dynamically determines 
+which of these methods to invoke at runtime, depending on the actual object that invokes the 
+method.
+***Note you could not define the equalArea method for comparing whether two geometric 
+objects have the same area if the getArea method were not defined in GeometricObject. 
+Now you have seen the benefits of defining the abstract methods in GeometricObject.
+
+
+In sum, It called "abstract" cause it is not specific(just the origin of something). Afterward,
+subclass extends to be more specific 
