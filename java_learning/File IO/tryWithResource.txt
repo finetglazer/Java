@@ -18,7 +18,7 @@ H thì học tại sao nhé.
         Reader reader = new FileReader("file.txt");
         // code which may throw an exception
         reader.close();
-    Giả sử có gì đó không ổn trước khi closegọi và một ngoại lệ được đưa ra. Nó dẫn đến tình huống trong đó phương thức sẽ không bao giờ được gọi và tài nguyên hệ thống sẽ không được giải phóng. Có thể giải quyết vấn đề bằng cách sử dụng cấu trúc try-catch-Last :
+    Giả sử có gì đó không ổn trước khi close gọi và một ngoại lệ được đưa ra. Nó dẫn đến tình huống trong đó phương thức sẽ không bao giờ được gọi và tài nguyên hệ thống sẽ không được giải phóng. Có thể giải quyết vấn đề bằng cách sử dụng cấu trúc try-catch-Last:
 
         Reader reader = null;
 
