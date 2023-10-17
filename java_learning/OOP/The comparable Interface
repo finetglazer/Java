@@ -1,0 +1,55 @@
+It defines the compareTo() method for sorting
+
+Ex for defination
+public interface Comparable<E> {
+  public int compareTo(E o);
+}
+
+-> the result will return negative, 0 or positive if 'this' < , = , > 'o'.
+The above code shows that Comparable interface is generic interface. 
+
+Ex: sout(new Integer(3).compareTo(new Integer(5))) -> -1
+    sout("ABC".compareTo("ABC")); -> 0
+    java.util.Date date1 = new java.util.Date(2013, 1, 1);
+    java.util.Date date2 = new java.util.Date(2012, 1, 1);
+    sout(date1.compareTo(date2) -> 1
+
+-> A special thing is Sort method in the Java API uses compareTo() method to sort. 
+Primitive like int, string, double => can use Arrays.sort()
+But when u use created obj -> should implement interface 
+
+Ex: 
+
+class Rectangle {
+  double Area;
+  //constructor
+}
+
+class rectangleComparable extends Rectangle implements Comparable<rectangleComparable> {
+  // constructor
+  @Override
+public int compareTo(rectangleComparable o) {
+  ->...
+}
+
+main {
+  list<rectangleComparable>.add(...)
+  Collection.sort(list);
+}
+
+
+-> Another way:
+
+class Rectangle implements Comparable<Rectangle>{
+  double Area;
+  //constructor
+
+  @Override
+  public int compareTo(Rectangle o) {
+    ...
+  }
+}
+main {
+  list<Rectangle>.add(...)
+  Collection.sort(list);
+}
