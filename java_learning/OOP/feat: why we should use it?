@@ -1,0 +1,52 @@
+1. Abstract 
+  + transparency and consistent(nhat quan) code for using
+2. Multiple inheritance 
+  + class inheritance one class but can implements many interface. 
+  -> This is so important when a class needs to inherit behavior from mulitple sources
+
+  Ex: 
+  interface animal {
+    void keu();
+  }
+
+  interface giaCam {
+    void bay();
+  }
+
+  class bat implements animal, giaCam {
+    @Override
+    keu();
+
+    @Override
+    bay();
+  }
+
+3. Polymorphism 
+  Many class can implement a interface so we can write code more generic and reusable code. 
+
+  Ex: 
+  interface Shape {
+    double getArea();
+  }
+
+  class Circle implements Shape {
+    private double radius;
+    // constructor.,,,
+
+    @Override
+    double getArea(); 
+  }
+
+  class Rectangle ...
+  ....
+
+// getArea is used generically, and resuably. 
+Creative: interface nhu khoan dau tu, nhieu nha dau tu tap trung vao => co the co them nguowif khac
+va moi nguoif se 'dong gop' theo 1 cach rieng. 
+-> Ex: file tuhoc1710.java
+
+4. Decoupling(tach roi)
+  Seperating the definition and what it does of the method.
+  => This leads to flexible of code
+5. Standardization
+  Used to define contracts or APIS, so interface are used in libraries, frameworks, and APIs(will learn). 
