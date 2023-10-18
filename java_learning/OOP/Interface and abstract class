@@ -1,0 +1,27 @@
+1. Def
+  + Interface: is contract which saves the methods but just the signature not actions. All classes implementing interface must implements all methods
+  + Abstract class: is a class that contains both abstract and  concrete methods. It serves as a base class for other classes. 
+
+2. Mulitple inheritance: 
+  Interface supports multiple interface inheritance, and abstract class only be inheritted form one class.
+
+3. Constructor
+  Interface do not have constructor and abstract class have.
+
+4. Fields
+  + Inheritance: Can only have constants (public static final fields)
+  + Abstract class: Can have fields with many access modifiers
+
+5. Use Cases:
+   I1           I2         I3                              Abstract class
+_______     ________    _______                               / | \
+|     |     |      |    |      |                             /   |  \
+  \              |          /                               /    |   \
+   \             |         /                               /     |    \
+    \            |        /                           CLASS1   CLASS2  CLASS3    
+          CLASS
+
+Special case: interface can inherit many interfaces.
+
+
+
