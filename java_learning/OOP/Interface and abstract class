@@ -9,7 +9,7 @@
   Interface do not have constructor and abstract class have.
 
 4. Fields
-  + Inheritance: Can only have constants (public static final fields)
+  + Interface: Can only have constants (public static final fields)
   + Abstract class: Can have fields with many access modifiers
 
 5. Use Cases:
