@@ -23,3 +23,22 @@ list.add(5);
 list.add("hjehe");
 list.add(new Point(1, 2));
 
+3. Erasure and restriction
+
+The compiler after check the code, they erase generic code -> raw code
+
+ArrayList<String> list = new ArrayList<>();
+list.add("Oklahoma");
+String state = list.get(0);
+ 
+--> ArrayList list = new ArrayList();
+list.add("Oklahoma");
+String state = (String)(list.get(0));
+
+Some restrictions: 
+1. new E()
+E object = new E();
+-> wrong cause new E() is execuated at runtime but generic E is erased before run
+
+2. new E[]
+3. generic types in static method
