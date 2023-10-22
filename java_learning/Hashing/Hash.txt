@@ -1,0 +1,62 @@
+Hash
+
+hash functions and Hash codes
+
+a search key -> int value(hash code) -> index of hash table
+
++for primitive and string is different
+
+-Handling collisions using open addressing
+
+A collision occurs when two keys are mapped to the same index in a hash table. Generally, there are two ways for handling collisions: open addressing and separate chaining
+
+In common 
+N is 11 and index = key % N
+Open addressing
+...
+Separate chaining
+
+using linkedList
+	key
+0	44
+1	
+1	
+3	
+4	4 -> 26
+5	16
+6	28
+7	
+8	
+9	
+10	21
+Insert entries with keys: 34, 29, 53, 44, 120, 39, 45, 40
+			   1   7   9   0   10   6   1   7
+Answer
+	key
+0	44     
+1	34 -> 45 
+2		
+3	
+4	4 -> 26
+5	16
+6	28 -> 39
+7	29 -> 40
+8	
+9	53
+10	21 -> 120 
+
+
+Methods Time
+clear() O(capacity)
+containsKey(key: Key) O(1)
+containsValue(value: V) O(capacity)
+entrySet() O(capacity)
+get(key: K) O(1)
+isEmpty() O(1)
+keySet() O(capacity)
+put(key: K, value: V) O(1)
+remove(key: K) O(1)
+size() O(1)
+values() O(capacity)
+rehash() O(capacity)
+
