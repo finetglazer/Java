@@ -1,0 +1,64 @@
+4 Parallel Streams
+
+Streams are executed in parallel mode(improving performance).
+Software needs to run in parallel -> using parallelStream() method in the Collections interface.
+Any stream can be turned to into a parallel stream by invoking the parallel. 
+Likewise, you can turn a parallel stream into a sequential stream by sequential() method.
+ 
+To apply parallel, first, we need to divide into stateless and stateful methods. 
+Stateless filters and map can be execuated independently from other elements in the stream. 
+Ex: mapToInt: each member in the structure is independent.
+
+Vice versa, stateful filters like distinct and sorted. 
+
+Here, stateless methods are inherently parallelizable(one pass in parallel).
+      On the other hand, stateful methods are executed in multiple passes in parallel. 
+
+Ex: 
+
+Random random = new Random(); -> to generate random numbers.
+int[] list = random.ints(n).toArray(); -> ints(n) method to generate an IntStream consisting of n number of random int values. 
+Runtime.getRuntime().availableProcessors()); -> returns a Runtime object. Invoking Runtime object's availableProcessors() returns the number of available processors for the JVM. 
+
+int[] list1 = IntStream.of(list).filter(e −> e > 0).sorted()
+15 .limit(5).toArray();-> normal using and this is a sequential stream. 
+
+So Can we turn it into a parallel stream, simply invoke the parallel() method:
+
+int[] list2 = IntStream.of(list).parallel().filter(e −> e > 0).sorted().limit(5).toArray();
+-> 
+
+This can be proof through this code: 
+
+long startTime = System.currentTimeMillis();
+        int[] list1 = IntStream.of(list).filter(e -> e > 0).sorted()
+                .limit(5).toArray();
+        System.out.println(Arrays.toString(list1));
+        long endTime = System.currentTimeMillis();
+        System.out.println("Sequential execution time is " +
+                (endTime - startTime) + " milliseconds");
+
+        startTime = System.currentTimeMillis();
+        int[] list2 = IntStream.of(list).parallel().filter(e -> e > 0)
+                .sorted().limit(5).toArray();
+        System.out.println(Arrays.toString(list2));
+        endTime = System.currentTimeMillis();
+
+        System.out.println("Parallel execution time is " +
+                (endTime - startTime) + " milliseconds");
+
+Some questions arise:
+
+1, The intermediate methods are 'lazy'.
+IntStream stream = IntStream.of(list).filter(e −> e > 0).sorted().limit(5); -> do not excuted
+int[] lst = stream.Array() -> need time to executed the previous line. 
+
+2, The order of the intermediate methods has a relative effects
+
+-> Time of limit(5).sorted() < Time of .sorted().limit(5). 
+
+3, Not always parallel stream faster.
+
+4, When executing a stream method in parallel, the elements in the stream in any order. 
+
+IntStream stream = IntStream.of(list).filter(e −> e > 0).sorted() .limit(5);

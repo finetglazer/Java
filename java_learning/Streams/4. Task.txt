@@ -1,0 +1,34 @@
+4.1  What is a stateless method? What is a stateful method?
+
++ Stateless method execute the elements independently and vice versa. 
+
+4.2 How do you create a parallel stream?
+
+Use parallel() after a stream.
+
+4.3 Suppose names is a set of strings, which of the following two streams is better?
+Object[] s = set.parallelStream().filter(e −> e.length() > 3)
+ .sorted().toArray();
+Object[] s = set.parallelStream().sorted()
+ .filter(e −> e.length() > 3).toArray();
+
+The latter is better cause of sort() method.
+
+4.4 What will be the output of the following code?
+
+int[] values = {3, 4, 1, 5, 20, 1, 3, 3, 4, 6};
+System.out.print("The values are ");
+IntStream.of(values).forEach(e −> System.out.print(e + " "));
+
+-> initial order
+
+int[] values = {3, 4, 1, 5, 20, 1, 3, 3, 4, 6};
+System.out.print("The values are ");
+IntStream.of(values).parallel() .forEach(e −> System.out.print(e + " "));
+
+-> any order
+
+4.5. Write a statement to obtain an array of 1000 random double values between 0.0
+and 1.0, excluding 1.0
+
+DoubleStream.of(new Random().doubles(200_000, 0.0, 1.0).toArray()).parallel().limit(1000).filter(e -> e != 1.0).forEach(e -> System.out.print(e + " "));

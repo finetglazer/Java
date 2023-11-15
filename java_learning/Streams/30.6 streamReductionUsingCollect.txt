@@ -1,0 +1,43 @@
+30.6 Stream reduction using the collect Method
+
+Collect method accumulates the result into a StringBuilder -> efficient.
+
+The method takes 3 functional arguments: 1, a supplier function to construct a new instance of the result container. 
+					 2,  an accumulator function to incorporate the elements from the stream to the result container
+					 3, a combining function to merge the result container into another. 
+
+
+
+Ex: 
+String[] names = {"John", "Peter", "Susan", "Kim", "Jen", "George", "Alan", "Stacy", "Michelle", "john"};
+StringBuilder sb = Stream.of(names).collect(() −> new StringBuilder(), (c, e) −> c.append(e), (c1, c2) −> c1.append(c2));
+
++, "() -> new StringBuilder()" creates a StringBuilder object for storing the result. 
++, "(c, e) -> c.append(e)" adds a string e to a StringBuilder c
++, "(c1, c2) -> c1.append(c2)" merges the c2 into c1
+
+I can be like this if u do not use lambda
+StringBuilder sb = Stream.of(names).collect(StringBuilder::new, StringBuilder::append, StringBuilder::append);
+
+this code like: 
+	StringBuilder sb = new StringBuilder();
+	for (String s: Stream.of(names)) {
+ 		sb.append(s);
+	}
+*NOTE THAT: code is executed in parallel.
+
+Another role of collect() method:
+
+ArrayList<String> list = Stream.of(names).collect(ArrayList::new,  ArrayList::add, ArrayList::addAll);
+
+For simplicity: we use the Collector interface defining for 3 before arguments.
+-> In Collector interface has methods like toList(), toMap(), toSet(),
+
+-> ArrayList<String> list = Stream.of(names).collect(Collector.toList());
+
+=> This is so convenient and common in life.
+
+In addition, Collector interface has many other lucrative methods.
+
+
+

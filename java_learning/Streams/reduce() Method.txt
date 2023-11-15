@@ -1,0 +1,35 @@
+Use reduce method to reduce the elements in a stream into a single value.
+
+In normal case, when use want to produce a summary, max, min, we use a loop
+Ex:
+int total = 0;
+for (int e: s)
+   total += e;
+
+-> Tis is simple code, but SEQUENTIAL.
+=> The reduce method can be in a parallel execution by binary operation.
+
+int sum = s.parallelStream().reduce(0, (e1, e2) -> e1 + e2);
+
+The role of 0 in this method  
+Here, the reduce() takes 2 arguments. The first is the initial value. The latter is an obj of the FUNCTIONAL INTERFACE IntBinaryOperator. This contains the ABSTRACT method applyAsInt(int e1, int e2) returning an int value.
+
+Using anonymous inner class:
+reduce(0,
+ new java.util.function.IntBinaryOperator() {
+ public int applyAsInt(int e1, int e2) {
+ return e1 + e2;
+ }
+}
+
+int total = identity (i.e., 0, in this case);
+for (int e: s) {
+ total = applyAsInt(total, e);// total = total + e;
+}
+
+Return max, min element:
+
+int res = s.parallelStream().reduce(Integer.MIN_VALUE, (e1, e2) -> Math.max(e1, e2));
+
+Explanation:
+-> res = Integer.MIN_VALUE -> res = max(res, e)

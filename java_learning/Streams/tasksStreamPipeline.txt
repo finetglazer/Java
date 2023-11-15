@@ -1,0 +1,52 @@
+1. Show the output of the following code:
+
+Character[] chars = {'D', 'B', 'A', 'C'};
+System.out.println(Stream.of(chars).sorted().findFirst().get());	// A
+System.out.println(Stream.of(chars).sorted(
+ java.util.Comparator.reverseOrder()).findFirst().get());	// D
+System.out.println(Stream.of(chars)
+ .limit(2).sorted().findFirst().get());		// B 
+System.out.println(Stream.of(chars).distinct()
+ .skip(2).filter(e −> e > 'A').findFirst().get());	// C
+System.out.println(Stream.of(chars)
+ .max(Character::compareTo).get());	// D
+System.out.println(Stream.of(chars)	
+ .max(java.util.Comparator.reverseOrder()).get());	// D
+System.out.println(Stream.of(chars)
+ .filter(e −> e > 'A').findFirst().get());	// D  
+System.out.println(Stream.of(chars)
+ .allMatch(e −> e >= 'A'));	// true
+System.out.println(Stream.of(chars)
+ .anyMatch(e −> e > 'F'));	// false
+System.out.println(Stream.of(chars)
+ .noneMatch(e −> e > 'F'));	// true
+Stream.of(chars).map(e −> e + "").map(e −> e.toLowerCase())
+ .forEach(System.out::println);		// d, b, a, c
+Object[] temp = Stream.of(chars).map(e −> e + "Y")
+ .map(e −> e.toLowerCase()).sorted().toArray();	
+System.out.println(java.util.Arrays.toString(temp));		// [dy, by, ay, cy]
+
+2. What is wrong in the following code?
+
+Character[] chars = {'D', 'B', 'A', 'C'};
+Stream<Character> stream = Stream.of(chars).sorted();
+System.out.println(stream.findFirst());
+System.out.println(stream.skip(2).findFirst());
+
+-> This is wrong because when u implement line 3 -> after the stream is deleted.
+
+3. Rewrite (a) using a method reference and an anonymous inner class and (b) using 
+lambda expression and an anonymous inner class:
+
+I just use lambda and reference form.
+(a) sorted((s1, s2) −> s1.compareToIgnoreCase(s2))  -> sorted(String::compareToIgnoreCase)
+(b) forEach(System.out::println) -> forEach(e -> System.out.println(e));
+
+4. Given a map of the type Map<String, Double>, write an expression that 
+returns the sum of all the values in the map. For example, if the map contains 
+{"john", 1.5} and {"Peter", 1.1}, the sum is 2.6
+
+double sum = yourMap.values().stream()
+    .mapToDouble(Double::doubleValue)
+    .sum();
+-> this is in the next lesson

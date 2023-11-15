@@ -1,0 +1,59 @@
+2. Stream Pipelines
+2.1 The Stream.of, limit, and forEach Methods
+
+Ex:
+	Stream.of(names).limit(4).sorted()
+                .forEach(e -> System.out.print(e + " "));
+of(names) return a Stream 
+limit(4) returns a new Stream (intermediate method)
+sorted() sorts the stream
+forEach method displays using lambda expression
+
+2.2 The sorted Method
+
+Ex:
+	Stream.of(names).limit(4).sorted((e1, e2) -> e1.compareToIgnoreCase(e2)).
+
+The sorted Method uses a Comparator which is functional interface 
+-> A lambda expression is used to implement the interface 
+
+2.3 The filter Method
+
+Ex: filter(e -> e.length() > 4)
+
+take the argument of the Predicate<? super T> type, which is functional interface with an abstract method test(T t) that returns a Boolean value. --> in sum, functional interface and boolean return.
+
+2.4 The max and min Methods 
+
+Ex:
+        System.out.println("Smallest string alphabetically: "
+                + Stream.of(names).min(String::compareTo).get());//min((e1,e2)-> e1.compareTo(e2)).get());
+
+->The method max and min take an argument of the Comparator<? Super T> type. The program uses the method reference String::compareTo to simplify the code for creating a Comparator
+
+The max-min methods return an Optional<T> that describes the element-> need to use get() from the Optional class to return the element. 
+
+2.5 The anyMatch, allMatch, and noneMatch Methods
+
+test if the stream contains an element, all elements, or no element that sastifies the predicate. 
+
+2.6 The map, distinct, and count Methods
+
+Ex:
+	 System.out.println("Number of distinct case-insensitive strings: "
+                + Stream.of(names).map(e -> e.toUpperCase())
+                .distinct().count());
+The map method returns a new stream by mapping each element in the stream into new element
+
+
+The distinct() method obtains a new stream with all distinct elements.
+The count() method counts the number of elements in the stream. 
+The map method takes an arguments of the ... -> map(e -> e.toUpperCase())
+						map(String::toUpperCase)
+
+2.7 The findFirst, findAny, and toArray Methods
+
+findFirst -> first element wrapped in an instance of Optional<T> -> get()
+findAny() -> any element in the stream
+toArray() -> return an array of objects from the stream
+				

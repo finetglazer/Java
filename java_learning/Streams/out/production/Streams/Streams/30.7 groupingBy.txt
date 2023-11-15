@@ -1,0 +1,12 @@
+30.7 Grouping elements using the groupingby Collector
+
+
+-> We can use the groupingBy collector with the collect Method to collect the elements by group
+
+Ex: String[] names = {"John", "Peter", "Susan", "Kim", "Jen", 
+ "George", "Alan", "Stacy", "Steve", "john"}; 
+Map<Character, Long> map = Stream.of(names).collect(
+ Collectors.groupingBy(e −> e.charAt(0), Collectors.counting()));
+
++, The first argument in the groupingBy method specifies the criteria for grouping, known as a classifier. 
++, The second argument specifies how the elements in a group are processed, known as a group processor. 

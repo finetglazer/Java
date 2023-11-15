@@ -1,0 +1,95 @@
+STREAM
+
+1. Introduction
+
+Using aggregate(tap hop) operations(stream operations) on collection streams can greatly simplify coding and improve performance.
+
+Double[] numbers = {2.4, 55.6, 90.12, 26.6};
+ Set<Double> set = new HashSet<>(Arrays.asList(numbers));
+ int count = 0;
+ for (double e: set) 
+ if (e > 60) 
+ count++;
+ System.out.println("Count is " + count);
+
+-->
+
+System.out.println("Count is " + set.stream().filter(e -> e > 60).count());
+
+ What are the benefits of using aggregate operations on collection streams for 
+processing data?
+-> Leave the detailed implementation to the computer -> concise and simpler.
+-> Streams operation can be executed parallel -> faster
+
+2. Stream pipelines
+
+An array or collection contains data, and a stream is a transient(temporary) object for processing data, after processed, it is destroyed
+
+STREAM() method IN COLLECTION interface -> STREAM object 
+Stream interface extends the BaseStream interface 
+
+The methods -> intermediate method: transform stream into another stream
+	    -> terminal method: return a result or perform actions
+	    -> static method: create a stream
+
+Graph:
+-----------------------------------------------------------------------
+<<interface>> BaseStream
++ close(): S -> close the stream
++ parallel(): S -> return an equivalent stream executed in parallel
++ sequential(): S -> ......................................sequential
++ isParallel(): boolean -> return true if this stream is parallel
+-----------------------------------------------------------------------
+	^
+	|
+	|
+	|
+	|
+	|
+------------------------------------------------------------------
+<<interface>> Stream
+
+-Intermediate operations:
++distinct(): Stream<T>
++filter(p: Predicate<? super T): Stream<T>
++limit(n: long): Stream<T>
++skip(n: long): Stream<T>
++sorted(): Stream<T>
++sorted(comparator: Comparator<? super T>):
+ Stream<T> 
++map(mapper: Function<? super T, ? extends R>: Stream<R> 
++mapToInt(mapper: ToIntFunction<? super T>): IntStream
++mapToLong(mapper: ToLongFunction<? super T>): LongStream 
++mapToDouble(mapper: ToDoubleFunction<? super T>): DoubleStream 
+
+-Terminal operations:
++count(): long
++max(c: Comparator<? super T>): Optional<T>
++min(c: Comparator<? super T>): Optional<T>
++findFirst(): Optional<T>
++findAny(): Optional<T>
++allMatch(p: Predicate<? super T): boolean
++anyMatch(p: Predicate<? super T): boolean
++noneMatch(p: Predicate<? super T): boolean
++forEach(action: Consumer<? super T>): void
+
++reduce(accumulator: BinaryOperator<T>): Optional<T>
++reduce(identity: T, accumulator: BinaryOperator<T>): T
++collect(collector: <? super <T, A, R>>): R
+
+-Static methods:
++toArray(): Object[]
++empty(): Stream<T>
++of(values: T...): Stream<T>
++of(values: T): Stream<T>
++concat(a1: Stream<? extends T>, a2: Stream<? extends T>): Stream<T>
+--------------------------------------------------------------------
+
+-> The methods are invoked using a stream pipeline
+A example: 
+
+set.stream().limit(50).distinct().count()_____________             
+|       \                    \                        \
+Source createAStream zeroOrMoreIntermediateMethods oneTerminalMethod
+
+We now introduce the stream methods through this example.
