@@ -19,8 +19,8 @@ public class TestMyHashMap {
 
         map.remove("Smith");
         System.out.println("Entries in map: " + map);
-
         map.clear();
+
         System.out.println("Entries in map: " + map);
     }
 }
